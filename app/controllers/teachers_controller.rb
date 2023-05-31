@@ -1,30 +1,30 @@
 class TeachersController < ApplicationController
 
     def index
-        teachers = teacher.all
+        teachers = Teacher.all
         render json: teachers, status: :ok
     end
     
     def show
-        teacher = teacher.find(params[:id])
+        teacher = Teacher.find(params[:id])
         render json: teacher, status: :ok
     end
     
     def create
-        teacher = teacher.create!(teacher_params)
+        teacher = Teacher.create!(teacher_params)
         render json: teacher, status: :created
     end
     
     def update
-        teacher = teacher.find(params[:id])
+        teacher = Teacher.find(params[:id])
         updated_teacher = teacher.update!(teacher_params)
         render json: teacher, status: :accepted
     end
     
     def destroy
-        teacher = teacher.find(params[:id])
+        teacher = Teacher.find(params[:id])
         teacher.destroy
-        render json: teacher
+        head :no_content
     end
     
     private
