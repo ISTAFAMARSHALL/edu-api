@@ -1,6 +1,6 @@
 class Teacher < ApplicationRecord
 
     belongs_to :school
-    has_many :classes
-    has_many :students, through: :classes
+    has_many :student_classes
+    has_many :students, through: :student_classes
 end

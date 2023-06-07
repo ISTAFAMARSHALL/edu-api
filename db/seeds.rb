@@ -17,3 +17,14 @@ end
 1000.times do |index|
     Student.create!(name: Faker::Name.name, address: Faker::Address.unique.full_address, email: Faker::Internet.email, birthday: Faker::Date.birthday, school_id: rand(1..10), auth_level: "student" )
 end
+
+
+School.all.each do |school|
+
+    t_count = school.students.count
+
+    school.students.each do |student|
+        StudentClass.create!(time: Faker::Time.backward(days: 5, period: :morning, format: :short), student_id: student.id, teacher_id: rand(1..t_count) )
+    end
+
+end
