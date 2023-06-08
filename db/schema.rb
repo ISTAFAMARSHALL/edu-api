@@ -35,6 +35,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_07_150937) do
     t.string "email"
     t.string "birthday"
     t.string "school_id"
+    t.string "user_id"
+    t.string "student_class_id"
     t.string "auth_level"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -47,6 +49,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_07_150937) do
     t.string "email"
     t.string "birthday"
     t.string "school_id"
+    t.string "user_id"
     t.string "auth_level"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
