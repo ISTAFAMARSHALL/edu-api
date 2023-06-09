@@ -15,8 +15,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_09_003726) do
   enable_extension "plpgsql"
 
   create_table "course_enrollments", force: :cascade do |t|
-    t.string "student_class_id"
-    t.string "student_id"
+    t.integer "student_class_id"
+    t.integer "student_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -30,8 +30,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_09_003726) do
 
   create_table "student_classes", force: :cascade do |t|
     t.string "time"
-    t.string "teacher_id"
-    t.string "student_id"
+    t.integer "teacher_id"
+    t.integer "student_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -41,9 +41,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_09_003726) do
     t.string "address"
     t.string "email"
     t.string "birthday"
-    t.string "school_id"
-    t.string "user_id"
-    t.string "student_class_id"
+    t.integer "school_id"
+    t.integer "user_id"
     t.string "auth_level"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -55,8 +54,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_09_003726) do
     t.string "subject"
     t.string "email"
     t.string "birthday"
-    t.string "school_id"
-    t.string "user_id"
+    t.integer "school_id"
+    t.integer "user_id"
     t.string "auth_level"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

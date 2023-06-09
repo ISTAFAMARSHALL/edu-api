@@ -69,7 +69,10 @@ School.all.each do |school|
         average_students_in_class.times do
             student = all_students.shuffle.first
             selected_student = Student.find_by(id: student)
-            studentClass.students << selected_student
+            # studentClass.students << selected_student
+
+            CourseEnrollment.create(student_id: selected_student.id, student_class_id: studentClass.id)
+
         end
       
     end

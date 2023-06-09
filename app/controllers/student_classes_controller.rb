@@ -1,13 +1,13 @@
 class StudentClassesController < ApplicationController
 
     def index
-        student_classes = StudentClass.all
-        render json: student_classes, status: :ok
+        student_class = StudentClass.all
+        render json: student_class, status: :ok
     end
     
     def show
         student_class = StudentClass.find(params[:id])
-        render json: student_class, include: :students, status: :ok
+        render json: student_class, status: :ok
     end
     
     def create

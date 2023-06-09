@@ -1,7 +1,10 @@
 class CourseEnrollmentSerializer < ActiveModel::Serializer
-  attributes :id
+  attributes :id, :student_class_id, :student_id
 
-  belongs_to :student_class
-  belongs_to :student
-  
+  # attribute :student do 
+  #   self.object.student
+  # end
+
+
+
 end
