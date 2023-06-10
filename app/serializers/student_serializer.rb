@@ -4,6 +4,6 @@ class StudentSerializer < ActiveModel::Serializer
   belongs_to :user
   belongs_to :school
   
-  has_many :student_classes
+  has_many :student_classes, serializer: StudentClassSummarySerializer
   
 end

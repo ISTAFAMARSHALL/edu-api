@@ -1,3 +1,5 @@
 class StudentClassSummarySerializer < ActiveModel::Serializer
-  attributes :id
+
+  attributes :teacher
+
 end

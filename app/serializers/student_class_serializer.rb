@@ -1,8 +1,6 @@
 class StudentClassSerializer < ActiveModel::Serializer
   attributes :id, :time
 
-  # belongs_to :teacher
-
   attribute :students do 
     self.object.students
   end
