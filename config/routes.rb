@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   resources :students
   resources :teachers
   resources :student_classes
+  resources :users
+  resources :course_enrollments
 
   post "/signup", to: "patrons#create"
   get "/me", to: "users#show"

@@ -1,24 +1,51 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect , useState, useContext} from "react";
+import React from 'react';
+import { Route, Switch} from "react-router-dom"
+import { useHistory } from 'react-router-dom';
+// import Login from "./pages/Login"
+// import HomePage from "./pages/HomePage"
+
+import { UserContext } from "./context/user";
 
 function App() {
+
+  const [loggedIn, setLoggedIn] = useState(false)
+  const {setCurrentUser} = useContext(UserContext);
+
+  // const history = useHistory()
+
+  useEffect(() => {
+    fetch("/me")
+    .then((response) => {
+      if (response.ok) {
+        response.json().then((data) => {
+          setCurrentUser(data);
+          setLoggedIn(true)});
+    }});
+  }, [setCurrentUser]);
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <div>
+        <h1>STIMS</h1>
+        {/* {!loggedIn ? (
+            <Login setLoggedIn={setLoggedIn}/>
+        ) : (
+          <>
+            <h1>STIMS</h1>
+            <NavBar setLoggedIn={setLoggedIn} />
+            <Switch>
+
+            
+            <Route path="/">
+              <HomePage setLoggedIn={setLoggedIn} handle_EditReservation={handle_EditReservation}/>
+            </Route>
+
+            </Switch>
+          </>
+        )}   */}
+        
+      </div>
   );
 }
 
