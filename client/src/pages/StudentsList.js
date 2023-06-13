@@ -1,61 +1,47 @@
-import { useState } from "react";
-import { useEffect } from "react";
-import { UserContext } from "./context/user";
+import { useEffect , useState, useContext} from "react";
+import { UserContext } from "../context/user";
 
 function StudentList () {
 
-    const [restaurants, setrestaurants] = useState([]);
-    const [addRestaurant, setAddRestaurant] = useState(false);
-    const [errors, setErrors] = useState([])
-    const {currentUser, setCurrentUser} = useContext(UserContext);
+    const {currentUser} = useContext(UserContext);
+    const [school, setSchool] = useState([]);
+    const [errors, setErrors] = useState([]);
 
+    let filtered_school = currentUser.school[0] === undefined ? ( 0 ) : ( currentUser.school[0].id )
+    
     useEffect(() => {
-        fetch("/restaurants")
+        fetch(`schools/${filtered_school}`)
         .then((response) => {
             if (response.ok) {
               response.json().then((data) => {
-                setrestaurants(data);
+                setSchool(data);
               });
             } else {
               response.json().then((e) => setErrors(e.errors));
             }
           });
-      }, [setrestaurants]);
-      
-      let displayRestaurants = restaurants.map((r) => (
-        <div key={r.id}>
-            
+      }, []);
+
+      return currentUser.school[0] === undefined ? (<h1>You have no assigned Schools</h1>) : (
+        
+        <div>
+        <h1>All of {school.name} Students</h1>
+        {school.length === undefined ? (school.students.map((s) => (
+        <ul key={s.id}>
+            {s.name}
             <br></br>
-            <h3>{r.name}</h3>
-            <p>{r.cuisine}</p>
-            <p>{r.description}</p>
-            <br></br>
+            {s.email}
+        </ul>
+        ))) : ("") }
+
+        {/* <div>
+            { errors.length <= 0 ? ("") : (
+                errors.map((err) => (
+            <li key={err}>{err}</li>
+            )))}
+        </div> */}
+
         </div>
-      ))
-
-      return (
-        <>
-            <br></br>
-            <br></br>
-            <h5>View</h5>
-            <h5>Restaurants</h5>
-            <h5>Below</h5>
-            <br></br>
-            <button id='addrestaurant' onClick={()=>setAddRestaurant(!addRestaurant)}>Add New Restaurant</button>
-            <br></br>
-            {addRestaurant ? (
-              <NewRestaurant restaurants={restaurants} setrestaurants={setrestaurants} addRestaurant={addRestaurant} setAddRestaurant={setAddRestaurant}/> 
-            ) : ( "")}
-            {displayRestaurants}
-
-            <div>
-                { errors.length <= 0 ? ("") : (
-                        errors.map((err) => (
-                <li key={err}>{err}</li>
-                )))}
-            </div>
-
-        </>
 
     )
 }

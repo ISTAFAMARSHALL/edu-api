@@ -8,8 +8,7 @@ function TeacherPage ({ setLoggedIn }) {
 
     // const [editAccount , setEdit] = useState(false)
     const [view, setView] = useState(false)
-    
-    console.log(currentUser)
+
 
     return (
 
@@ -30,30 +29,27 @@ function TeacherPage ({ setLoggedIn }) {
                 
     {currentUser.student_classes.map((course) => {
         let student_list = course.students.map((s) => (
-        <>
-        <br></br>
-        <ol>
-        Name: {s.name}
-        <br></br>
-        Birthday: {s.birthday}
-        <br></br>
-        Email: {s.email}
-        <br></br>
-        Address: {s.address}
-        </ol>
-        </>
+        <div key={s.id}>
+            <ul>
+                <li>{s.name}</li>
+                <li>Birthday: {s.birthday}</li>
+                <li>Email: {s.email}</li>
+                <li>Address: {s.address}</li>
+                <br></br>
+            </ul>
+        </div>
     )) 
 
     return (
                             
         <div key={course.id}>
 
-        <li >
+        <>
         Course Name: {currentUser.teachers[0].subject}
         <br></br>
         Time: {course.time}
         <br></br>
-        </li>
+        </>
         <br></br>
         
         <button onClick={()=>setView(!view)} variant="fill" color="primary" >
@@ -61,7 +57,9 @@ function TeacherPage ({ setLoggedIn }) {
         </button>
         
         <br></br>
-        {!view ? ( "" ):student_list}
+        <br></br>
+
+        {!view ? ( "" ) : student_list}
 
         </div> 
 

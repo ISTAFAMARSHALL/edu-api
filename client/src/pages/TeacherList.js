@@ -1,61 +1,48 @@
-import { useState } from "react";
-import { useEffect } from "react";
-import { UserContext } from "./context/user";
+import { useEffect , useState, useContext} from "react";
+import { UserContext } from "../context/user";
 
 function TeacherList () {
 
-    const [teachers, setTeachers] = useState([]);
-    const [addRestaurant, setAddRestaurant] = useState(false);
-    const [errors, setErrors] = useState([])
-    const {currentUser, setCurrentUser} = useContext(UserContext);
+    const {currentUser} = useContext(UserContext);
+    const [school, setSchool] = useState([]);
+    const [errors, setErrors] = useState([]);
 
+    let filtered_school = currentUser.school[0] === undefined ? ( 0 ) : ( currentUser.school[0].id )
+  
     useEffect(() => {
-        fetch(`schools/${currentUser.school[0].id}`)
+        fetch(`schools/${filtered_school}`)
         .then((response) => {
             if (response.ok) {
               response.json().then((data) => {
-                setTeachers(data);
+                setSchool(data);
               });
             } else {
               response.json().then((e) => setErrors(e.errors));
             }
           });
-      }, [setTeachers]);
-      
-    //   let display_teachers = teachers.map((t) => (
-    //     <div key={t.id}>
-            
-    //         <br></br>
-    //         <h3>{t.name}</h3>
-    //         <p>{r.cuisine}</p>
-    //         <p>{r.description}</p>
-    //         <br></br>
-    //     </div>
-    //   ))
+      }, []);
 
-      return (
-        <>
-            {/* <br></br>
+      return currentUser.school[0] === undefined ? (<h1>You have no assigned Schools</h1>) : (
+        <div>
+        <h1>All of {school.name} Teachers</h1>
+        {school.length === undefined ? (school.teachers.map((t) => (
+        <ul key={t.id}>
+            {t.name}
             <br></br>
-            <h5>View</h5>
-            <h5>Restaurants</h5>
-            <h5>Below</h5>
+            {t.subject}
             <br></br>
-            <button id='addrestaurant' onClick={()=>setAddRestaurant(!addRestaurant)}>Add New Restaurant</button>
-            <br></br>
-            {addRestaurant ? (
-              <NewRestaurant restaurants={restaurants} setrestaurants={setrestaurants} addRestaurant={addRestaurant} setAddRestaurant={setAddRestaurant}/> 
-            ) : ( "")} */}
-            {display_teachers}
+            {t.email}
+        </ul>
+        ))) : ("") }
 
-            {/* <div>
-                { errors.length <= 0 ? ("") : (
-                        errors.map((err) => (
-                <li key={err}>{err}</li>
-                )))}
-            </div> */}
+        {/* <div>
+            { errors.length <= 0 ? ("") : (
+                errors.map((err) => (
+            <li key={err}>{err}</li>
+            )))}
+        </div> */}
 
-        </>
+        </div>
 
     )
 }

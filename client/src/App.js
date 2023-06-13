@@ -7,6 +7,9 @@ import NavBar from "./components/NavBar"
 import TeacherPage from "./pages/TeacherPage"
 import { UserContext } from "./context/user";
 import StudentPage from "./pages/StudentPage";
+import TeacherList from "./pages/TeacherList";
+import StudentList from "./pages/StudentsList";
+import MyInfoPage from "./pages/MyInfoPage";
 
 function App() {
 
@@ -40,6 +43,18 @@ function App() {
         <NavBar setLoggedIn={setLoggedIn} />
 
         <Switch>
+
+        <Route path="/teachers/">
+          <TeacherList/>
+        </Route>
+
+        <Route path="/students/">
+          <StudentList/>
+        </Route>
+
+        <Route path="/my_info/">
+          <MyInfoPage/>
+        </Route>
 
         <Route path="/">
 

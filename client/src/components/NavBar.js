@@ -16,7 +16,6 @@ function Navbar({setLoggedIn}) {
 
 
   
-  console.log(currentUser.school[0].id)
 
   return (
     <div id='navbar'>
@@ -33,12 +32,12 @@ function Navbar({setLoggedIn}) {
 
         <NavLink className="button"
               exact
-              to={`teachers/${currentUser.school[0].id}`}
+              to="/teachers"
             ><button>School Staff</button></NavLink>
 
         <NavLink className="button"
               exact
-              to={`students/${currentUser.school[0].id}`}
+              to="/students"
             ><button>School Students</button></NavLink>
 
           <NavLink className="button"
