@@ -9,39 +9,41 @@
 
 ## Create Schools
 10.times do |index|
+
     School.create!(name: Faker::Educator.unique.primary_school, address: Faker::Address.unique.full_address)
+    
 end
 
 ## Create Teachers
 100.times do |index|
     
-    name = Faker::Name.name, 
-    address = Faker::Address.unique.full_address, 
-    subject = Faker::Educator.subject
-    email = Faker::Internet.unique.email, 
-    birthday = Faker::Date.birthday, 
-    school_id = rand(1..10), 
-    auth_level = "teacher"
-    password = Faker::Internet.password
+    name = Faker::Name.name;
+    address = Faker::Address.unique.full_address;
+    subject = Faker::Educator.subject;
+    email = "teacher#{index + 1}";
+    birthday = Faker::Date.birthday; 
+    school_id = rand(1..10);
+    auth_level = "teacher";
+    password = "password#{index + 1}";
 
-    teacher_user = User.create!(email: email, password_digest: password, password_confirmation: password)
-    teacher_user.teachers.create!(name: name, address: address, subject: subject, email: email, birthday: birthday, school_id: school_id, auth_level: auth_level)
+    teacher_user = User.create!(email: email, password: password, password_confirmation: password, auth_level: auth_level)
+    teacher_user.teachers.create!(name: name, address: address, subject: subject, email: email, birthday: birthday, school_id: school_id)
 
 end
 
 ## Create Students
 1000.times do |index|
 
-    name = Faker::Name.name, 
-    address = Faker::Address.unique.full_address, 
-    email = Faker::Internet.unique.email, 
-    birthday = Faker::Date.birthday, 
-    school_id = rand(1..10), 
-    auth_level = "student"
-    password = Faker::Internet.password
+    name = Faker::Name.name;
+    address = Faker::Address.unique.full_address;
+    email = "student#{index + 1}";
+    birthday = Faker::Date.birthday; 
+    school_id = rand(1..10);
+    auth_level = "student";
+    password = "password#{index + 1}";
     
-    student_user = User.create!(email: email, password_digest: password, password_confirmation: password)
-    student_user.students.create!(name: name, address: address, email: email, birthday: birthday, school_id: school_id, auth_level: auth_level)
+    student_user = User.create!(email: email, password: password, password_confirmation: password, auth_level: auth_level)
+    student_user.students.create!(name: name, address: address, email: email, birthday: birthday, school_id: school_id)
     
 end
 

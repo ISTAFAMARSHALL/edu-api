@@ -5,10 +5,10 @@ class CreateStudents < ActiveRecord::Migration[7.0]
       t.string :address
       t.string :email
       t.string :birthday
-      t.string :school_id
-      t.string :user_id
-      t.string :student_class_id
-      t.string :auth_level
+      t.integer :school_id
+      t.integer :user_id
+      t.integer :student_class_id
+
 
       t.timestamps
     end

@@ -5,6 +5,9 @@ Rails.application.routes.draw do
   # root "articles#index"
 
   # get "*path", to: "fallback#index", constraints: ->(req) { !req.xhr? && req.format.html? }
+
+  get "/me", to: "users#show"
+  
   resources :schools
   resources :students
   resources :teachers
@@ -13,8 +16,8 @@ Rails.application.routes.draw do
   resources :course_enrollments
 
   post "/signup", to: "patrons#create"
-  get "/me", to: "users#show"
-
+  
+  
   post "/login", to: "sessions#create"
   delete "/logout", to: "sessions#destroy"
 
