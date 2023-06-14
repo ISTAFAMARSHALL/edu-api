@@ -81,18 +81,18 @@
 
 # end
 
-1.times do |index|
+# 1.times do |index|
     
-    name = "Anthony";
-    address = Faker::Address.unique.full_address;
-    subject = "";
-    email = "admin1";
-    birthday = Faker::Date.birthday; 
-    school_id = rand(1..10);
-    auth_level = "admin";
-    password = "admin1";
+#     name = "Anthony";
+#     address = Faker::Address.unique.full_address;
+#     subject = "";
+#     email = "admin1";
+#     birthday = Faker::Date.birthday; 
+#     school_id = rand(1..10);
+#     auth_level = "admin";
+#     password = "admin1";
 
-    teacher_user = User.create!(email: email, password: password, password_confirmation: password, auth_level: auth_level)
-    teacher_user.teachers.create!(name: name, address: address, subject: subject, email: email, birthday: birthday, school_id: school_id)
+#     teacher_user = User.create!(email: email, password: password, password_confirmation: password, auth_level: auth_level)
+#     teacher_user.teachers.create!(name: name, address: address, subject: subject, email: email, birthday: birthday, school_id: school_id)
     
-end
+# end

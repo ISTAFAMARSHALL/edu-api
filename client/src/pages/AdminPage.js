@@ -1,12 +1,15 @@
 import { useState , useContext} from "react";
 // import PatronEditForm from "../components/PatronEditForm";
 import { UserContext } from "../context/user";
+import TeacherForm from "../components/TeacherForm";
+import {NavLink} from 'react-router-dom'
 
 function AdminPage ({ setLoggedIn }) {
 
     const {currentUser , setCurrentUser} = useContext(UserContext);
 
-    // const [editAccount , setEdit] = useState(false)
+    const [addTeacher , setAddTeacher] = useState(false)
+    const [addStudent , setAddStudent] = useState(false)
     const [view, setView] = useState(false)
 
 
@@ -34,19 +37,27 @@ function AdminPage ({ setLoggedIn }) {
         <>
         
         <h2>Your School is {currentUser.teachers[0].school.name} </h2>
-             
+        
+        
+    
         </>
+
+        
         
         )}
         
-        <button  variant="fill" color="primary" >
-            Add Teacher
+
+        <button onClick={()=>setAddTeacher(!addTeacher)} variant="fill" color="primary" >
+        Add Teacher
         </button>
 
         <button  variant="fill" color="primary" >
             Add Student
         </button>
-            
+
+
+       {addTeacher? ( <TeacherForm/> ) : ("") }
+                
     </ol> 
 
 

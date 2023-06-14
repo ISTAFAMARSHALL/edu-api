@@ -3,9 +3,9 @@ import { UserContext } from "../context/user";
 
 function StudentList () {
 
-    const {currentUser} = useContext(UserContext);
-    const [school, setSchool] = useState([]);
-    const [errors, setErrors] = useState([]);
+  const {currentUser} = useContext(UserContext);
+  const [school, setSchool] = useState([]);
+  const [errors, setErrors] = useState([]);
 
     let filtered_school = currentUser.auth_level == "admin" && currentUser.teachers[0].school.length<=0 ?  ("") : (currentUser.auth_level == "teacher" || "admin" ? (currentUser.teachers[0].school.id) : (currentUser.students[0].school.id))
     
@@ -26,6 +26,11 @@ function StudentList () {
         
         <div>
         <h1>All of {school.name} Students</h1>
+
+        {currentUser.auth_level == "admin" ? (<button  variant="fill" color="primary" >
+            Add Student
+        </button>) : ("")}
+
         {school.length === undefined ? (school.students.map((s) => (
         <ul key={s.id}>
             {s.name}

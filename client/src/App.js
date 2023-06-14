@@ -9,8 +9,10 @@ import { UserContext } from "./context/user";
 import StudentPage from "./pages/StudentPage";
 import TeacherList from "./pages/TeacherList";
 import StudentList from "./pages/StudentsList";
+import SchoolList from "./pages/SchoolList";
 import MyInfoPage from "./pages/MyInfoPage";
 import AdminPage from "./pages/AdminPage";
+import TeacherForm from "./components/TeacherForm";
 
 function App() {
 
@@ -31,47 +33,50 @@ function App() {
 
   return (
     <div>
-      <h1>S.T.I.M.S</h1>
-      <h3>Student Teacher Integrated Management System</h3>
-        
-      {!loggedIn ? (
-        <Login setLoggedIn={setLoggedIn}/>
-      ) 
-      : 
-      (
-      <>
-
-        <NavBar setLoggedIn={setLoggedIn} />
-
-        <Switch>
-
-        <Route path="/teachers/">
-          <TeacherList/>
-        </Route>
-
-        <Route path="/students/">
-          <StudentList/>
-        </Route>
-
-        <Route path="/my_info/">
-          <MyInfoPage/>
-        </Route>
-
-        <Route path="/">
-
-        { currentUser.auth_level != "admin" ? ("") : (<AdminPage setLoggedIn={setLoggedIn}/>)}
-
-        { currentUser.auth_level != "teacher" ? ("") : (<TeacherPage setLoggedIn={setLoggedIn}/>)}
-
-        { currentUser.auth_level != "student" ? (""): (<StudentPage/>) }
-
-        </Route> 
-        
-        </Switch>
-          
-      </>
       
-      )}  
+    <h1>S.T.I.M.S</h1>
+      
+    <h3>Student Teacher Integrated Management System</h3>
+        
+    {!loggedIn ? (
+    <Login setLoggedIn={setLoggedIn}/>
+    ) : (
+      
+    <>
+
+    <NavBar setLoggedIn={setLoggedIn} />
+
+    <Switch>
+
+    <Route path="/schools/">
+      <SchoolList/>
+    </Route>
+
+    <Route path="/teachers/">
+      <TeacherList/>
+    </Route>
+
+    <Route path="/students/">
+      <StudentList/>
+    </Route>
+
+    <Route path="/my_info/">
+        <MyInfoPage/>
+    </Route>
+
+    <Route path="/">
+      { currentUser.auth_level != "admin" ? ("") : (<AdminPage setLoggedIn={setLoggedIn}/>)}
+
+      { currentUser.auth_level != "teacher" ? ("") : (<TeacherPage setLoggedIn={setLoggedIn}/>)}
+
+      { currentUser.auth_level != "student" ? (""): (<StudentPage/>) }
+    </Route> 
+        
+    </Switch>
+          
+    </>
+      
+    )}  
         
     </div>
   );

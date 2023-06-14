@@ -25,6 +25,11 @@ function TeacherList () {
       return currentUser === undefined ? (<h1>You have no assigned Schools</h1>) : (
         <div>
         <h1>All of {school.name} Teachers</h1>
+
+        {currentUser.auth_level == "admin" ? (<button  variant="fill" color="primary" >
+            Add Teacher
+        </button>) : ("")}
+
         {school.length === undefined ? (school.teachers.map((t) => (
         <ul key={t.id}>
             {t.name}
