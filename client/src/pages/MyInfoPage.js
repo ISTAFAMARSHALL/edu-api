@@ -2,47 +2,66 @@ import React, { useState , useContext} from "react";
 import { useHistory } from 'react-router-dom';
 import { UserContext } from "../context/user";
 
-function MyInfoPage({ setEdit }) {
+function MyInfoPage() {
 
   const {currentUser , setCurrentUser} = useContext(UserContext)
 
   const history = useHistory()
 
-  const [username, setUsername] = useState(currentUser.username);
+  const [email, setemail] = useState(currentUser.email);
   const [name, setName] = useState(currentUser.name);
-  const [phone_number, setPhoneNumber] = useState(currentUser.phone_number);
-  const [email_address, setEmailAddress] = useState(currentUser.email_address);
+  const [address, setAddress] = useState(currentUser.phone_number);
+  const [birthday, setBirthday] = useState(currentUser.email_address);
+  const [school, setSchool] = useState(currentUser.email_address);
+  const [edit, setEdit] = useState(false);
   const [errors, setErrors] = useState([]);
+
   
   function handleSignUp(e) {
     e.preventDefault();
-    fetch(`patrons/${currentUser.id}`, {
+    fetch(`users/${currentUser.id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        name,
-        phone_number,
-        email_address,
-        username
+        email
       }),
     }).then((response) => {
       if (response.ok) {
         response.json().then((user) => {
-          setEdit(false)
+            console.log(currentUser.id,user)
           history.push("/");
           setCurrentUser(user)
         });
       } else {
         response.json().then((e) => setErrors(e.errors));
       }
-    });
-}
+    });}
 
-  return (
+    return !edit ? (
+    
+    <div>
+
+        <br></br>
+        Name: {currentUser.auth_level == "teacher" ? (currentUser.teachers[0].name) : (currentUser.students[0].name)}
+        <br></br>
+        Address: {currentUser.auth_level == "teacher" ? (currentUser.teachers[0].address) : (currentUser.students[0].address)}
+        <br></br>
+        Email Address / Username: {email}
+        <br></br>
+        School: {currentUser.auth_level == "teacher" ? (currentUser.teachers[0].school.name) : (currentUser.students[0].school.name)}
+        <br></br>
+        <br></br>
+        <button onClick={()=>setEdit(!edit)} variant="fill" color="primary" >
+        Edit Account Info
+        </button>
+
+    </div>
+    ) : (
     <form onSubmit={handleSignUp}>
-      <div>
+        <br></br>
+        {/* <div>
         <label>Name</label>
         <input
           type="text"
@@ -53,32 +72,22 @@ function MyInfoPage({ setEdit }) {
       </div>
 
       <div>
-        <label>Phone Number</label>
+        <label>address</label>
         <input
           type="text"
           id="phoneNumber"
-          value={phone_number}
-          onChange={(e) => setPhoneNumber(e.target.value)}
+          value={address}
+          onChange={(e) => setAddress(e.target.value)}
         />
-      </div>
+      </div> */}
 
       <div>
-        <label>Email Address</label>
+        <label>Email Address / Username</label>
         <input
           type="text"
           id="emailAddress"
-          value={email_address}
-          onChange={(e) => setEmailAddress(e.target.value)}
-        />
-      </div>
-      
-      <div>
-        <label>username</label>
-        <input
-          type="text"
-          id="username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          value={email}
+          onChange={(e) => setemail(e.target.value)}
         />
       </div>
 
@@ -87,6 +96,10 @@ function MyInfoPage({ setEdit }) {
           Submit
         </button>
       </div>
+
+      <button onClick={()=>setEdit(!edit)} variant="fill" color="primary" >
+        Cancel Edit
+        </button>
 
       <div>
         { errors.length <= 0 ? ("") : (

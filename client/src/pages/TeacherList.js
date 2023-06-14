@@ -7,7 +7,8 @@ function TeacherList () {
     const [school, setSchool] = useState([]);
     const [errors, setErrors] = useState([]);
 
-    let filtered_school = currentUser.school[0] === undefined ? ( 0 ) : ( currentUser.school[0].id )
+    
+    let filtered_school = currentUser.auth_level == "teacher" ? (currentUser.teachers[0].school.id) : (currentUser.students[0].school.id)
   
     useEffect(() => {
         fetch(`schools/${filtered_school}`)
@@ -22,7 +23,7 @@ function TeacherList () {
           });
       }, []);
 
-      return currentUser.school[0] === undefined ? (<h1>You have no assigned Schools</h1>) : (
+      return currentUser === undefined ? (<h1>You have no assigned Schools</h1>) : (
         <div>
         <h1>All of {school.name} Teachers</h1>
         {school.length === undefined ? (school.teachers.map((t) => (

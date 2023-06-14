@@ -1,12 +1,10 @@
 class UserSerializer < ActiveModel::Serializer
   attributes :id , :email, :auth_level
 
-  attribute :school do 
-    self.object.school
-  end
 
-  # attribute :students do 
-  #   self.object.students
+
+  # attribute :schools do 
+  #   self.object.schools
   # end
 
   # attribute :teachers do 

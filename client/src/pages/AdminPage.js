@@ -2,7 +2,7 @@ import { useState , useContext} from "react";
 // import PatronEditForm from "../components/PatronEditForm";
 import { UserContext } from "../context/user";
 
-function TeacherPage ({ setLoggedIn }) {
+function AdminPage ({ setLoggedIn }) {
 
     const {currentUser , setCurrentUser} = useContext(UserContext);
 
@@ -14,18 +14,18 @@ function TeacherPage ({ setLoggedIn }) {
 
     <main>
         
-    <h3>Hello {currentUser.teachers[0].name}</h3>
+    <h3>Hello Administrator {currentUser.teachers[0].name}</h3>
 
-    <ol>{currentUser.student_classes.length<=0 ? (        
+    <ol>{currentUser.teachers[0].school.length<=0 ? (        
     <>
-        <h2>You have no classes</h2>
+        <h2>You are not assigned a School</h2>
     </>
         
     ) : (
             
     <>
                 
-    <h2>Your Classes</h2>
+    <h2>Your School is {currentUser.teachers[0].school.name} </h2>
                 
     {currentUser.student_classes.map((course) => {
         let student_list = course.students.map((s) => (
@@ -51,22 +51,25 @@ function TeacherPage ({ setLoggedIn }) {
         <br></br>
         </>
         <br></br>
+        
+        <button onClick={()=>setView(!view)} variant="fill" color="primary" >
+        View Your Student List
+        </button>
+        
+        <br></br>
+        <br></br>
 
         {!view ? ( "" ) : student_list}
 
         </div> 
-        
+
         )})}
+
 
         </>
         )}
             
         </ol> 
-
-        <button onClick={()=>setView(!view)} variant="fill" color="primary" >
-        View Your Student List
-        </button>
-
 
         {/* {!editAccount ? (
                 
@@ -90,5 +93,5 @@ function TeacherPage ({ setLoggedIn }) {
     )
 }
 
-export default TeacherPage;
+export default AdminPage;
 

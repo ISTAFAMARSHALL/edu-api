@@ -62,19 +62,12 @@ function LoginForm({ setLoggedIn , setSignedup}) {
         </button>
       </div>
 
-      {/* <div>
+      <div>
       { errors.length <= 0 ? ("") : (
                 errors.map((err) => (
           <li key={err}>{err}</li>
         )))}
-      </div> */}
-
-      <br></br>
-      {/* <div id='log_button'> Don't Have an Account?
-        <button onClick={()=>setSignedup(false)} variant="fill" color="primary" >
-          SignUp
-        </button>
-      </div> */}
+      </div>
 
     </form>
   );

@@ -1,8 +1,9 @@
 class TeacherSerializer < ActiveModel::Serializer
   attributes :id ,:name, :address, :subject, :email, :birthday
 
-  belongs_to :user
-  belongs_to :school
+  attribute :school do 
+  self.object.school
+  end
   
   has_many :student_classes
   

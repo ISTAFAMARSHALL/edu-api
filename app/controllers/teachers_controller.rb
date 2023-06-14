@@ -31,7 +31,7 @@ class TeachersController < ApplicationController
     private
 
     def user_params
-        params.permit(:email , :auth_level :password , :password_confirmation)
+        params.permit(:email ,:auth_level, :password , :password_confirmation)
     end
     
     def teacher_params

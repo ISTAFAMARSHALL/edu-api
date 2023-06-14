@@ -10,6 +10,7 @@ import StudentPage from "./pages/StudentPage";
 import TeacherList from "./pages/TeacherList";
 import StudentList from "./pages/StudentsList";
 import MyInfoPage from "./pages/MyInfoPage";
+import AdminPage from "./pages/AdminPage";
 
 function App() {
 
@@ -58,12 +59,14 @@ function App() {
 
         <Route path="/">
 
+        { currentUser.auth_level != "admin" ? ("") : (<AdminPage setLoggedIn={setLoggedIn}/>)}
+
         { currentUser.auth_level != "teacher" ? ("") : (<TeacherPage setLoggedIn={setLoggedIn}/>)}
 
         { currentUser.auth_level != "student" ? (""): (<StudentPage/>) }
 
         </Route> 
-
+        
         </Switch>
           
       </>
