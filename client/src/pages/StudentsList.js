@@ -7,7 +7,7 @@ function StudentList () {
     const [school, setSchool] = useState([]);
     const [errors, setErrors] = useState([]);
 
-    let filtered_school = currentUser.auth_level == "teacher" ? (currentUser.teachers[0].school.id) : (currentUser.students[0].school.id)
+    let filtered_school = currentUser.auth_level == "admin" && currentUser.teachers[0].school.length<=0 ?  ("") : (currentUser.auth_level == "teacher" || "admin" ? (currentUser.teachers[0].school.id) : (currentUser.students[0].school.id))
     
     useEffect(() => {
         fetch(`schools/${filtered_school}`)

@@ -33,12 +33,12 @@ function Navbar({setLoggedIn}) {
         <NavLink className="button"
               exact
               to="/teachers"
-            ><button>School Staff</button></NavLink>
+            ><button> {currentUser.auth_level !== "admin" && currentUser.teachers[0].school.length<=0 ? ("School District Staff") : ("School Staff")} </button></NavLink>
 
         <NavLink className="button"
               exact
               to="/students"
-            ><button>School Students</button></NavLink>
+            ><button> {currentUser.auth_level !== "admin" && currentUser.teachers[0].school.length<=0 ? ("School District Students") : ("School Students")}</button></NavLink>
 
           <NavLink className="button"
               exact

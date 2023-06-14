@@ -16,60 +16,53 @@ function AdminPage ({ setLoggedIn }) {
         
     <h3>Hello Administrator {currentUser.teachers[0].name}</h3>
 
-    <ol>{currentUser.teachers[0].school.length<=0 ? (        
-    <>
-        <h2>You are not assigned a School</h2>
-    </>
-        
-    ) : (
-            
-    <>
-                
-    <h2>Your School is {currentUser.teachers[0].school.name} </h2>
-                
-    {currentUser.student_classes.map((course) => {
-        let student_list = course.students.map((s) => (
-        <div key={s.id}>
-            <ul>
-                <li>{s.name}</li>
-                <li>Birthday: {s.birthday}</li>
-                <li>Email: {s.email}</li>
-                <li>Address: {s.address}</li>
-                <br></br>
-            </ul>
-        </div>
-    )) 
-
-    return (
-                            
-        <div key={course.id}>
-
+    <ol>
+        {currentUser.teachers[0].school.length<=0 ? (        
         <>
-        Course Name: {currentUser.teachers[0].subject}
-        <br></br>
-        Time: {course.time}
-        <br></br>
-        </>
-        <br></br>
-        
-        <button onClick={()=>setView(!view)} variant="fill" color="primary" >
-        View Your Student List
+        <h2>You are not assigned a School</h2>
+
+        {/* onClick={()=>setEdit(!editAccount)} */}
+
+        <button  variant="fill" color="primary" >
+        Add School
         </button>
-        
-        <br></br>
-        <br></br>
-
-        {!view ? ( "" ) : student_list}
-
-        </div> 
-
-        )})}
-
 
         </>
-        )}
+        
+        ) : (
             
-        </ol> 
+        <>
+        
+        <h2>Your School is {currentUser.teachers[0].school.name} </h2>
+             
+        </>
+        
+        )}
+        
+        <button  variant="fill" color="primary" >
+            Add Teacher
+        </button>
+
+        <button  variant="fill" color="primary" >
+            Add Student
+        </button>
+            
+    </ol> 
+
+
+            
+    </main>
+
+    )
+}
+
+export default AdminPage;
+
+
+
+
+
+
 
         {/* {!editAccount ? (
                 
@@ -87,11 +80,3 @@ function AdminPage ({ setLoggedIn }) {
                 
         <PatronEditForm currentUser={currentUser} setCurrentUser={setCurrentUser} setEdit={setEdit}/>
         )} */}
-            
-        </main>
-
-    )
-}
-
-export default AdminPage;
-

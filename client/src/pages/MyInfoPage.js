@@ -44,13 +44,13 @@ function MyInfoPage() {
     <div>
 
         <br></br>
-        Name: {currentUser.auth_level == "teacher" ? (currentUser.teachers[0].name) : (currentUser.students[0].name)}
+        Name: {currentUser.auth_level == "teacher" || "admin" ? (currentUser.teachers[0].name) : (currentUser.students[0].name)}
         <br></br>
-        Address: {currentUser.auth_level == "teacher" ? (currentUser.teachers[0].address) : (currentUser.students[0].address)}
+        Address: {currentUser.auth_level == "teacher" || "admin" ? (currentUser.teachers[0].address) : (currentUser.students[0].address)}
         <br></br>
         Email Address / Username: {email}
         <br></br>
-        School: {currentUser.auth_level == "teacher" ? (currentUser.teachers[0].school.name) : (currentUser.students[0].school.name)}
+        School: {currentUser.auth_level == "teacher" || "admin" ? (currentUser.teachers[0].school.name) : (currentUser.students[0].school.name)}
         <br></br>
         <br></br>
         <button onClick={()=>setEdit(!edit)} variant="fill" color="primary" >
