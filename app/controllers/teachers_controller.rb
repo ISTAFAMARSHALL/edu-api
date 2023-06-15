@@ -25,7 +25,7 @@ class TeachersController < ApplicationController
     def destroy
         teacher = Teacher.find(params[:id])
         teacher.destroy
-        head :no_content
+        render json: teacher
     end
     
     private

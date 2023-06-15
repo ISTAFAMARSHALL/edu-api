@@ -1,5 +1,5 @@
-import { useState, useContext} from "react";
-import { UserContext } from "../context/user";
+import { useState } from "react";
+// import { UserContext } from "../context/user";
 
 
 
@@ -15,7 +15,7 @@ function StudentEditForm({setEditStudent,editStudent, updateStudent}) {
     // const [password_confirmation, setPasswordConfirmation] = useState("")
 
     const [errors, setErrors] = useState([])
-    const {currentUser} = useContext(UserContext);
+    // const {currentUser} = useContext(UserContext);
 
     const updatedStudent ={
         name,
@@ -42,6 +42,12 @@ function StudentEditForm({setEditStudent,editStudent, updateStudent}) {
             response.json().then((e) => setErrors(e.errors));
           }
         });
+    }
+
+    function handleDelete() {
+      fetch(`students/${updateStudent.id}`, { method: "DELETE" })
+      .then((r) => r.json())
+      .then((data) => setEditStudent(!editStudent))    
     }
 
   return (
@@ -127,12 +133,12 @@ function StudentEditForm({setEditStudent,editStudent, updateStudent}) {
         />
     </div> */}
 
-    {/* <div>
+    <div>
         { errors.length <= 0 ? ("") : (
             errors.map((err) => (
               <li key={err}>{err}</li>
         )))}
-    </div> */}
+    </div>
 
     <br></br>
     
@@ -140,6 +146,10 @@ function StudentEditForm({setEditStudent,editStudent, updateStudent}) {
 
     <button onClick={()=>setEditStudent(!editStudent)} variant="fill" color="primary" >
         Cancel Edit
+    </button>
+
+    <button onClick={handleDelete} variant="fill" color="primary" >
+        Delete Student
     </button>
 
   </form>

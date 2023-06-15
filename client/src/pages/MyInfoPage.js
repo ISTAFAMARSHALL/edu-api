@@ -1,19 +1,16 @@
 import React, { useState , useContext} from "react";
-import { useHistory } from 'react-router-dom';
 import { UserContext } from "../context/user";
 
 function MyInfoPage() {
 
   const {currentUser , setCurrentUser} = useContext(UserContext)
 
-  const history = useHistory()
-
-  const [email, setemail] = useState(currentUser.email);
+  const [email, setEmail] = useState(currentUser.email);
   const [edit, setEdit] = useState(false);
   const [errors, setErrors] = useState([]);
 
   
-  function handleSignUp(e) {
+  function handleEditInfo(e) {
     e.preventDefault();
     fetch(`users/${currentUser.id}`, {
       method: "PATCH",
@@ -26,8 +23,9 @@ function MyInfoPage() {
     }).then((response) => {
       if (response.ok) {
         response.json().then((user) => {
-          history.push("/");
+          console.log(user)
           setCurrentUser(user)
+          setEdit(false)
         });
       } else {
         response.json().then((e) => setErrors(e.errors));
@@ -66,7 +64,7 @@ function MyInfoPage() {
 
     </div>
     ) : (
-    <form onSubmit={handleSignUp}>
+    <form onSubmit={handleEditInfo}>
         <br></br>
         {/* <div>
         <label>Name</label>
@@ -94,7 +92,7 @@ function MyInfoPage() {
           type="text"
           id="emailAddress"
           value={email}
-          onChange={(e) => setemail(e.target.value)}
+          onChange={(e) => setEmail(e.target.value)}
         />
       </div>
 

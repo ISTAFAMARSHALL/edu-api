@@ -10,7 +10,7 @@ function StudentList () {
   const [editStudent, setEditStudent] = useState(false);
   const [updateStudent, setUpdateStudent] = useState([]);
 
-    let filtered_school = currentUser.auth_level === "admin" && currentUser.schools.length === 0 ?  ("") : (currentUser.auth_level !== "teacher" && currentUser.auth_level !== "admin" ?  (currentUser.students[0].school.id) : (currentUser.schools[0].id))
+  const filtered_school = currentUser.auth_level === "admin" && currentUser.schools.length === 0 ?  ("") : (currentUser.auth_level !== "teacher" && currentUser.auth_level !== "admin" ?  (currentUser.students[0].school.id) : (currentUser.schools[0].id))
       
     useEffect(() => {
         fetch(`schools/${filtered_school}`)
@@ -23,7 +23,7 @@ function StudentList () {
               response.json().then((e) => setErrors(e.errors));
             }
           });
-      }, [editStudent]);
+      }, [editStudent, filtered_school]);
 
       function handleStudentEdit(e) {
         setUpdateStudent(e)

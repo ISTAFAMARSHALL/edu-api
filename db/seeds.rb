@@ -24,7 +24,7 @@ end
     birthday = Faker::Date.birthday; 
     school_id = rand(1..10);
     auth_level = "teacher";
-    password = "password#{index + 1}";
+    password = "teacher#{index + 1}";
 
     teacher_user = User.create!(email: email, password: password, password_confirmation: password, auth_level: auth_level)
     teacher_user.teachers.create!(name: name, address: address, subject: subject, email: email, birthday: birthday, school_id: school_id)
@@ -40,7 +40,7 @@ end
     birthday = Faker::Date.birthday; 
     school_id = rand(1..10);
     auth_level = "student";
-    password = "password#{index + 1}";
+    password = "student#{index + 1}";
     
     student_user = User.create!(email: email, password: password, password_confirmation: password, auth_level: auth_level)
     student_user.students.create!(name: name, address: address, email: email, birthday: birthday, school_id: school_id)

@@ -27,7 +27,7 @@ function TeacherList () {
               response.json().then((e) => setErrors(e.errors));
             }
           });
-      }, [editTeacher]);
+      }, [editTeacher, filtered_school]);
 
       function handleTeacherEdit(e) {
         setUpdateTeacher(e)

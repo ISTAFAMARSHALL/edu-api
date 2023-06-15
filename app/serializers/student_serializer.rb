@@ -5,7 +5,7 @@ class StudentSerializer < ActiveModel::Serializer
   attribute :school do 
   self.object.school
   end
-  
+
   has_many :student_classes, serializer: StudentClassSummarySerializer
   
 end
