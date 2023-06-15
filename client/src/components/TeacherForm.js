@@ -143,6 +143,13 @@ function TeacherForm({setAddTeacher,addTeacher, disabled , setDisabled}) {
     
     <button type="submit" value="Save">Save Teacher</button>
 
+    <button onClick={()=>{
+      setAddTeacher(!addTeacher);
+      setDisabled(false);
+      }} variant="fill" color="primary" >
+      Cancel 
+    </button>
+
   </form>
   )
 }

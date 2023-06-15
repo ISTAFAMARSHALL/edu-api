@@ -122,6 +122,13 @@ function StudentForm({setAddStudent,addStudent, disabled , setDisabled}) {
     
     <button type="submit" value="Save">Save Student</button>
 
+    <button onClick={()=>{
+      setAddStudent(!addStudent);
+      setDisabled(false);
+      }} variant="fill" color="primary" >
+      Cancel 
+    </button>
+
   </form>
   )
 }

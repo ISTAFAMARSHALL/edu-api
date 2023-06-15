@@ -1,5 +1,6 @@
 import { useEffect , useState, useContext} from "react";
 import { UserContext } from "../context/user";
+import TeacherEditForm from "../components/TeacherEditForm";
 
 
 
@@ -8,6 +9,8 @@ function TeacherList () {
     const {currentUser} = useContext(UserContext);
     const [school, setSchool] = useState([]);
     const [errors, setErrors] = useState([]);
+    const [editTeacher, setEditTeacher] = useState(false);
+    const [updateTeacher, setUpdateTeacher] = useState([]);
 
 
     let filtered_school = currentUser.auth_level === "admin" && currentUser.schools.length === 0 ?  ("") : (currentUser.auth_level !== "teacher" && currentUser.auth_level !== "admin" ?  (currentUser.students[0].school.id) : (currentUser.schools[0].id))
@@ -24,9 +27,16 @@ function TeacherList () {
               response.json().then((e) => setErrors(e.errors));
             }
           });
-      }, [filtered_school]);
+      }, [editTeacher]);
 
-      return currentUser === undefined ? (<h1>You have no assigned Schools</h1>) : (
+      function handleTeacherEdit(e) {
+        setUpdateTeacher(e)
+      }
+
+      return editTeacher === true ? (
+        <div><br></br>
+        <TeacherEditForm editTeacher={editTeacher} setEditTeacher={setEditTeacher} updateTeacher={updateTeacher} /></div>) 
+        : (
         <div>
         <h1>All of {school.name} Teachers</h1>
 
@@ -41,7 +51,16 @@ function TeacherList () {
             {t.subject}
             <br></br>
             {t.email}
-        </ul>
+            <br></br>
+            {currentUser.auth_level === "admin" ? (
+            <button onClick={(e)=>{
+              setEditTeacher(!editTeacher)
+              handleTeacherEdit(t)
+              }} 
+              variant="fill" color="primary" >
+              Update Teacher Info
+            </button>) : ("")}
+          </ul>
         ))) : ("") }
 
         <div>

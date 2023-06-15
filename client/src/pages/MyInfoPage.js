@@ -106,7 +106,7 @@ function MyInfoPage() {
 
       <button onClick={()=>setEdit(!edit)} variant="fill" color="primary" >
         Cancel Edit
-        </button>
+      </button>
 
       <div>
         { errors.length <= 0 ? ("") : (
