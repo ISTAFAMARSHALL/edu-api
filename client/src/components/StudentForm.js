@@ -3,11 +3,10 @@ import { UserContext } from "../context/user";
 
 
 
-function TeacherForm({setAddTeacher,addTeacher}) {
+function StudentForm({setAddStudent,addStudent}) {
 
-    const [name, setTeachersName] = useState("");
+    const [name, setStudentsName] = useState("");
     const [address, setAddress] = useState("");
-    const [subject, setSubject] = useState("");
     const [email, setEmail] = useState("");
     const [birthday, setBirthday] = useState("")
     const [authLevel, setAuthLevel] = useState("")
@@ -17,32 +16,30 @@ function TeacherForm({setAddTeacher,addTeacher}) {
     const [errors, setErrors] = useState([])
     const {currentUser} = useContext(UserContext);
 
-    const newTeacher ={
+    const newStudent ={
         name,
         address,
-        subject,
         email,
-        auth_level: authLevel,
+        auth_level: "student",
         birthday,
         school_id: currentUser.teachers[0].school.id,
         password,
         password_confirmation,
     }
-    console.log(currentUser)
-    console.log(newTeacher)
-    function handleAddTeacher(e) {
+
+    function handleAddStudent(e) {
         e.preventDefault();
 
-        fetch("/teachers", {
+        fetch("/students", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(newTeacher)
+          body: JSON.stringify(newStudent)
             }).then((response) => {
           if (response.ok) {
             response.json().then((data) => {
-            setAddTeacher(!addTeacher)
+            setAddStudent(!addStudent)
             });
           } else {
             response.json().then((e) => setErrors(e.errors));
@@ -51,15 +48,15 @@ function TeacherForm({setAddTeacher,addTeacher}) {
     }
 
   return (
-    <form  onSubmit={handleAddTeacher}>
+    <form  onSubmit={handleAddStudent}>
 
     <div id='newRestaurant'>
-      <label>Teachers Name </label>
+      <label>Students Name </label>
         <input 
           type="text"
           value={name}
           placeholder='Please Enter Restaurant Name'
-          onChange={(e) => setTeachersName(e.target.value)}
+          onChange={(e) => setStudentsName(e.target.value)}
         />
     </div>
 
@@ -70,16 +67,6 @@ function TeacherForm({setAddTeacher,addTeacher}) {
           value={address}
           placeholder='Please Enter Cuisine Type'
           onChange={(e) => setAddress(e.target.value)}
-        />
-    </div>
-
-    <div>
-      <label>Subject </label>
-        <input 
-          type="text"
-          value={subject}
-          placeholder='Please Enter a Description'
-          onChange={(e) => setSubject(e.target.value)}
         />
     </div>
 
@@ -101,15 +88,6 @@ function TeacherForm({setAddTeacher,addTeacher}) {
           placeholder='Please Enter a Description'
           onChange={(e) => setBirthday(e.target.value)}
         />
-    </div>
-
-    <div>
-      <label>Choose Level </label>
-        <select value={authLevel} required placeholder='Select Reservation Day' onChange={(e) => setAuthLevel(e.target.value)}>
-            <option value=""></option>
-            <option value="admin">Admin</option>
-            <option value="teacher">Teacher</option>
-        </select>
     </div>
 
     <div>
@@ -141,10 +119,10 @@ function TeacherForm({setAddTeacher,addTeacher}) {
 
     <br></br>
     
-    <button type="submit" value="Save">Save Teacher</button>
+    <button type="submit" value="Save">Save Student</button>
 
   </form>
   )
 }
 
-export default TeacherForm
+export default StudentForm

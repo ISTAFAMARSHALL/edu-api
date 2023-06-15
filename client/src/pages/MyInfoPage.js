@@ -30,7 +30,6 @@ function MyInfoPage() {
     }).then((response) => {
       if (response.ok) {
         response.json().then((user) => {
-            console.log(currentUser.id,user)
           history.push("/");
           setCurrentUser(user)
         });

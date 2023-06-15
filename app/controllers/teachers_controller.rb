@@ -1,5 +1,5 @@
 class TeachersController < ApplicationController
-
+    skip_before_action :authorize
     def index
         teachers = Teacher.all
         render json: teachers, status: :ok
@@ -35,7 +35,7 @@ class TeachersController < ApplicationController
     end
     
     def teacher_params
-        params.permit(:name, :address, :subject, :email, :birthday, :school_id, :password, :password_confirmation)
+        params.permit(:name, :address, :subject, :email, :birthday, :school_id)
     end
     
 end

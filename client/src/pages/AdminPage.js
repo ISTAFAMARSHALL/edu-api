@@ -56,7 +56,7 @@ function AdminPage ({ setLoggedIn }) {
         </button>
 
 
-       {addTeacher? ( <TeacherForm/> ) : ("") }
+       {addTeacher? ( <TeacherForm setAddTeacher={setAddTeacher} addTeacher={addTeacher} /> ) : ("") }
                 
     </ol> 
 
