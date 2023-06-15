@@ -1,11 +1,14 @@
 import { useEffect , useState, useContext} from "react";
 import { UserContext } from "../context/user";
+import StudentEditForm from "../components/StudentEditForm.js";
 
 function StudentList () {
 
   const {currentUser} = useContext(UserContext);
   const [school, setSchool] = useState([]);
   const [errors, setErrors] = useState([]);
+  const [editStudent, setEditStudent] = useState(false);
+  const [updateStudent, setUpdateStudent] = useState([]);
 
     let filtered_school = currentUser.auth_level === "admin" && currentUser.schools.length === 0 ?  ("") : (currentUser.auth_level !== "teacher" && currentUser.auth_level !== "admin" ?  (currentUser.students[0].school.id) : (currentUser.schools[0].id))
       
@@ -20,22 +23,39 @@ function StudentList () {
               response.json().then((e) => setErrors(e.errors));
             }
           });
-      }, [filtered_school]);
+      }, [editStudent]);
 
-      return currentUser === undefined ? (<h1>You have no assigned Schools</h1>) : (
+      function handleStudentEdit(e) {
+        setUpdateStudent(e)
+      }
+
+      return editStudent === true ? (
+        <div><br></br>
+        <StudentEditForm editStudent={editStudent} setEditStudent={setEditStudent} updateStudent={updateStudent} /></div>) 
+        : (
         
         <div>
         <h1>All of {school.name} Students</h1>
 
-        {currentUser.auth_level === "admin" ? (<button  variant="fill" color="primary" >
+        {/* {currentUser.auth_level === "admin" ? (<button  variant="fill" color="primary" >
             Add Student
-        </button>) : ("")}
+        </button>) : ("")} */}
 
         {school.length === undefined ? (school.students.map((s) => (
+          
         <ul key={s.id}>
             {s.name}
             <br></br>
             {s.email}
+            <br></br>
+            {currentUser.auth_level === "admin" ? (
+            <button onClick={(e)=>{
+              setEditStudent(!editStudent)
+              handleStudentEdit(s)
+              }} 
+              variant="fill" color="primary" >
+              Update Student Info
+            </button>) : ("")}
         </ul>
         ))) : ("") }
 

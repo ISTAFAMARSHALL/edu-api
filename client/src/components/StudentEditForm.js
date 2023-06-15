@@ -3,13 +3,13 @@ import { UserContext } from "../context/user";
 
 
 
-function StudentEditForm({setEditTeacher,editTeacher, updateTeacher}) {
+function StudentEditForm({setEditStudent,editStudent, updateStudent}) {
 
-    const [name, setTeachersName] = useState(updateTeacher.name);
-    const [address, setAddress] = useState(updateTeacher.address);
+    const [name, setStudentsName] = useState(updateStudent.name);
+    const [address, setAddress] = useState(updateStudent.address);
     // const [subject, setSubject] = useState("");
-    const [email, setEmail] = useState(updateTeacher.email);
-    const [birthday, setBirthday] = useState(updateTeacher.birthday)
+    const [email, setEmail] = useState(updateStudent.email);
+    const [birthday, setBirthday] = useState(updateStudent.birthday)
 
     // const [password, setPassword] = useState("")
     // const [password_confirmation, setPasswordConfirmation] = useState("")
@@ -17,27 +17,26 @@ function StudentEditForm({setEditTeacher,editTeacher, updateTeacher}) {
     const [errors, setErrors] = useState([])
     const {currentUser} = useContext(UserContext);
 
-    const updatedTeacher ={
+    const updatedStudent ={
         name,
         address,
         email,
         birthday
     }
-    console.log(updateTeacher,updatedTeacher)
     
-    function handleAddTeacher(e) {
+    function handleEditStudent(e) {
         e.preventDefault();
         
-        fetch(`teachers/${updateTeacher.id}`, {
+        fetch(`students/${updateStudent.id}`, {
         method: "PATCH",
         headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(updatedTeacher)
+          body: JSON.stringify(updatedStudent)
             }).then((response) => {
           if (response.ok) {
             response.json().then((data) => {
-            setEditTeacher(!editTeacher)
+            setEditStudent(!editStudent)
             });
           } else {
             response.json().then((e) => setErrors(e.errors));
@@ -47,15 +46,15 @@ function StudentEditForm({setEditTeacher,editTeacher, updateTeacher}) {
 
   return (
 
-    <form  onSubmit={handleAddTeacher}>
+    <form  onSubmit={handleEditStudent}>
 
     <div id='newRestaurant'>
-      <label>Teachers Name </label>
+      <label>Students Name </label>
         <input 
           type="text"
           value={name}
           placeholder='Please Enter Restaurant Name'
-          onChange={(e) => setTeachersName(e.target.value)}
+          onChange={(e) => setStudentsName(e.target.value)}
         />
     </div>
 
@@ -137,9 +136,9 @@ function StudentEditForm({setEditTeacher,editTeacher, updateTeacher}) {
 
     <br></br>
     
-    <button type="submit" value="Save">Update Teacher</button>
+    <button type="submit" value="Save">Update Student</button>
 
-    <button onClick={()=>setEditTeacher(!editTeacher)} variant="fill" color="primary" >
+    <button onClick={()=>setEditStudent(!editStudent)} variant="fill" color="primary" >
         Cancel Edit
     </button>
 
@@ -147,4 +146,4 @@ function StudentEditForm({setEditTeacher,editTeacher, updateTeacher}) {
   )
 }
 
-export default StudentEditForm
+export default StudentEditForm;

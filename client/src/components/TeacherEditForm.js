@@ -25,7 +25,7 @@ function TeacherEditForm({setEditTeacher,editTeacher, updateTeacher}) {
     }
     console.log(updateTeacher,updatedTeacher)
     
-    function handleAddTeacher(e) {
+    function handleEditTeacher(e) {
         e.preventDefault();
         
         fetch(`teachers/${updateTeacher.id}`, {
@@ -47,7 +47,7 @@ function TeacherEditForm({setEditTeacher,editTeacher, updateTeacher}) {
 
   return (
 
-    <form  onSubmit={handleAddTeacher}>
+    <form  onSubmit={handleEditTeacher}>
 
     <div id='newRestaurant'>
       <label>Teachers Name </label>

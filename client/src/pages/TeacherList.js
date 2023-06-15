@@ -40,9 +40,9 @@ function TeacherList () {
         <div>
         <h1>All of {school.name} Teachers</h1>
 
-        {currentUser.auth_level === "admin" ? (<button  variant="fill" color="primary" >
+        {/* {currentUser.auth_level === "admin" ? (<button  variant="fill" color="primary" >
             Add Teacher
-        </button>) : ("")}
+        </button>) : ("")} */}
 
         {school.length === undefined ? (school.teachers.map((t) => (
         <ul key={t.id}>
