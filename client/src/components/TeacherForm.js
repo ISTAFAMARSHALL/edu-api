@@ -3,7 +3,7 @@ import { UserContext } from "../context/user";
 
 
 
-function TeacherForm({setAddTeacher,addTeacher}) {
+function TeacherForm({setAddTeacher,addTeacher, disabled , setDisabled}) {
 
     const [name, setTeachersName] = useState("");
     const [address, setAddress] = useState("");
@@ -28,8 +28,7 @@ function TeacherForm({setAddTeacher,addTeacher}) {
         password,
         password_confirmation,
     }
-    console.log(currentUser)
-    console.log(newTeacher)
+
     function handleAddTeacher(e) {
         e.preventDefault();
 
@@ -43,6 +42,7 @@ function TeacherForm({setAddTeacher,addTeacher}) {
           if (response.ok) {
             response.json().then((data) => {
             setAddTeacher(!addTeacher)
+            setDisabled(!disabled)
             });
           } else {
             response.json().then((e) => setErrors(e.errors));

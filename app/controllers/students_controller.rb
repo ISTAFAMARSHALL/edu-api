@@ -1,5 +1,5 @@
 class StudentsController < ApplicationController
-    
+
     def index
         students = Student.all
         render json: students, status: :ok
@@ -35,7 +35,7 @@ class StudentsController < ApplicationController
     end
     
     def student_params
-        params.permit(:name, :address, :email, :birthday, :school_id, :password, :password_confirmation)
+        params.permit(:name, :address, :email, :birthday, :school_id)
     end
 
 end

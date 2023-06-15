@@ -3,7 +3,7 @@ import { UserContext } from "../context/user";
 
 
 
-function StudentForm({setAddStudent,addStudent}) {
+function StudentForm({setAddStudent,addStudent, disabled , setDisabled}) {
 
     const [name, setStudentsName] = useState("");
     const [address, setAddress] = useState("");
@@ -40,6 +40,7 @@ function StudentForm({setAddStudent,addStudent}) {
           if (response.ok) {
             response.json().then((data) => {
             setAddStudent(!addStudent)
+            setDisabled(!disabled)
             });
           } else {
             response.json().then((e) => setErrors(e.errors));

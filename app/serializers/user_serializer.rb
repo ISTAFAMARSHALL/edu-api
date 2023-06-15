@@ -3,9 +3,9 @@ class UserSerializer < ActiveModel::Serializer
 
 
 
-  # attribute :schools do 
-  #   self.object.schools
-  # end
+  attribute :schools do 
+    self.object.schools
+  end
 
   # attribute :teachers do 
   #   self.object.teachers

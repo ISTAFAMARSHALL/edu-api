@@ -2,7 +2,7 @@ import React, { useState , useContext } from "react";
 import { useHistory } from 'react-router-dom';
 import { UserContext } from "../context/user";
 
-function LoginForm({ setLoggedIn , setSignedup}) {
+function LoginForm({ setLoggedIn }) {
 
   const {setCurrentUser} = useContext(UserContext);
 

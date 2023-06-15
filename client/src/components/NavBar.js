@@ -6,16 +6,14 @@ import { UserContext } from "../context/user";
 
 function Navbar({setLoggedIn}) {
 
-    const { currentUser, setCurrentUser} = useContext(UserContext)
+  const { currentUser, setCurrentUser} = useContext(UserContext)
 
-    function handleLogOut() {
-        fetch("/logout", { method: "DELETE" })
-        setCurrentUser(null);
-          setLoggedIn(false);
-    }
+  function handleLogOut() {
+  fetch("/logout", { method: "DELETE" })
+    setCurrentUser(null);
+    setLoggedIn(false);
+  }
 
-
-  
 
   return (
     <div id='navbar'>
@@ -30,7 +28,7 @@ function Navbar({setLoggedIn}) {
     to="/my_info"
    ><button>My Info</button></NavLink>
 
-    {currentUser.auth_level !== "admin" && currentUser.teachers[0].school.length<=0 ? (<NavLink className="button"
+    {currentUser.auth_level === "admin" && currentUser.schools.length === 0 ? (<NavLink className="button"
     exact
     to="/schools"
     ><button> Schools</button></NavLink>) : ("")}
@@ -38,12 +36,12 @@ function Navbar({setLoggedIn}) {
     <NavLink className="button"
     exact
     to="/teachers"
-    ><button> {currentUser.auth_level !== "admin" && currentUser.teachers[0].school.length<=0 ? ("School District Staff") : ("School Staff")} </button></NavLink>
+    ><button> {currentUser.auth_level === "admin"  && currentUser.schools.length === 0 ? ("School District Staff") : ("School Staff")} </button></NavLink>
 
     <NavLink className="button"
     exact
     to="/students"
-    ><button> {currentUser.auth_level !== "admin" && currentUser.teachers[0].school.length<=0 ? ("School District Students") : ("School Students")}</button></NavLink>
+    ><button> {currentUser.auth_level === "admin" && currentUser.schools.length === 0 ? ("School District Students") : ("School Students")}</button></NavLink>
 
     <NavLink className="button"
     exact

@@ -1,5 +1,5 @@
 class TeachersController < ApplicationController
-    skip_before_action :authorize
+
     def index
         teachers = Teacher.all
         render json: teachers, status: :ok

@@ -2,15 +2,15 @@ import { useState , useContext} from "react";
 // import PatronEditForm from "../components/PatronEditForm";
 import { UserContext } from "../context/user";
 import TeacherForm from "../components/TeacherForm";
-import {NavLink} from 'react-router-dom'
+import StudentForm from "../components/StudentForm";
 
-function AdminPage ({ setLoggedIn }) {
+function AdminPage () {
 
-    const {currentUser , setCurrentUser} = useContext(UserContext);
+    const {currentUser } = useContext(UserContext);
 
     const [addTeacher , setAddTeacher] = useState(false)
     const [addStudent , setAddStudent] = useState(false)
-    const [view, setView] = useState(false)
+    const [disabled, setDisabled] = useState(false)
 
 
     return (
@@ -24,8 +24,6 @@ function AdminPage ({ setLoggedIn }) {
         <>
         <h2>You are not assigned a School</h2>
 
-        {/* onClick={()=>setEdit(!editAccount)} */}
-
         <button  variant="fill" color="primary" >
         Add School
         </button>
@@ -38,56 +36,33 @@ function AdminPage ({ setLoggedIn }) {
         
         <h2>Your School is {currentUser.teachers[0].school.name} </h2>
         
-        
-    
         </>
 
-        
-        
         )}
         
-
-        <button onClick={()=>setAddTeacher(!addTeacher)} variant="fill" color="primary" >
+        <button disabled={disabled} onClick={()=>{
+            setAddTeacher(!addTeacher)
+            setDisabled(!disabled)
+        }} variant="fill" color="primary" >
         Add Teacher
         </button>
 
-        <button  variant="fill" color="primary" >
+        <button disabled={disabled} onClick={()=>{
+            setAddStudent(!addStudent)
+            setDisabled(!disabled)
+        }} variant="fill" color="primary" >
             Add Student
         </button>
 
+       {addTeacher ? ( <TeacherForm setDisabled={setDisabled} setAddTeacher={setAddTeacher} addTeacher={addTeacher} /> ) : ("") }
 
-       {addTeacher? ( <TeacherForm setAddTeacher={setAddTeacher} addTeacher={addTeacher} /> ) : ("") }
+       {addStudent ? ( <StudentForm setDisabled={setDisabled} setAddStudent={setAddStudent} addStudent={addStudent} /> ) : ("") }
                 
     </ol> 
 
-
-            
     </main>
 
     )
 }
 
 export default AdminPage;
-
-
-
-
-
-
-
-        {/* {!editAccount ? (
-                
-        <div>
-        
-        <p>{currentUser.phone_number}</p>
-        <p>{currentUser.email_address}</p>
-        <button onClick={()=>setEdit(!editAccount)} variant="fill" color="primary" >
-        Edit Account Info
-        </button>
-                        
-        </div>
-            
-        ) : (
-                
-        <PatronEditForm currentUser={currentUser} setCurrentUser={setCurrentUser} setEdit={setEdit}/>
-        )} */}

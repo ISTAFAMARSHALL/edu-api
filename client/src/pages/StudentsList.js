@@ -7,8 +7,8 @@ function StudentList () {
   const [school, setSchool] = useState([]);
   const [errors, setErrors] = useState([]);
 
-    let filtered_school = currentUser.auth_level == "admin" && currentUser.teachers[0].school.length<=0 ?  ("") : (currentUser.auth_level == "teacher" || "admin" ? (currentUser.teachers[0].school.id) : (currentUser.students[0].school.id))
-    
+    let filtered_school = currentUser.auth_level === "admin" && currentUser.schools.length === 0 ?  ("") : (currentUser.auth_level !== "teacher" && currentUser.auth_level !== "admin" ?  (currentUser.students[0].school.id) : (currentUser.schools[0].id))
+      
     useEffect(() => {
         fetch(`schools/${filtered_school}`)
         .then((response) => {
@@ -20,14 +20,14 @@ function StudentList () {
               response.json().then((e) => setErrors(e.errors));
             }
           });
-      }, []);
+      }, [filtered_school]);
 
       return currentUser === undefined ? (<h1>You have no assigned Schools</h1>) : (
         
         <div>
         <h1>All of {school.name} Students</h1>
 
-        {currentUser.auth_level == "admin" ? (<button  variant="fill" color="primary" >
+        {currentUser.auth_level === "admin" ? (<button  variant="fill" color="primary" >
             Add Student
         </button>) : ("")}
 
@@ -39,12 +39,12 @@ function StudentList () {
         </ul>
         ))) : ("") }
 
-        {/* <div>
+        <div>
             { errors.length <= 0 ? ("") : (
                 errors.map((err) => (
             <li key={err}>{err}</li>
             )))}
-        </div> */}
+        </div>
 
         </div>
 

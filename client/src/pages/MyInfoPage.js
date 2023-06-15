@@ -9,10 +9,6 @@ function MyInfoPage() {
   const history = useHistory()
 
   const [email, setemail] = useState(currentUser.email);
-  const [name, setName] = useState(currentUser.name);
-  const [address, setAddress] = useState(currentUser.phone_number);
-  const [birthday, setBirthday] = useState(currentUser.email_address);
-  const [school, setSchool] = useState(currentUser.email_address);
   const [edit, setEdit] = useState(false);
   const [errors, setErrors] = useState([]);
 
@@ -37,21 +33,33 @@ function MyInfoPage() {
         response.json().then((e) => setErrors(e.errors));
       }
     });}
-
+    
     return !edit ? (
     
     <div>
 
         <br></br>
-        Name: {currentUser.auth_level == "teacher" || "admin" ? (currentUser.teachers[0].name) : (currentUser.students[0].name)}
+
+        Name: {currentUser.auth_level !== "teacher" && currentUser.auth_level !== "admin" ? ("") : (currentUser.teachers[0].name)}{currentUser.auth_level !== "student" ? ("") : (currentUser.students[0].name)}
+
         <br></br>
-        Address: {currentUser.auth_level == "teacher" || "admin" ? (currentUser.teachers[0].address) : (currentUser.students[0].address)}
+
+        Address: {currentUser.auth_level !== "teacher" && currentUser.auth_level !== "admin" ? ("") : (currentUser.teachers[0].address)}
+        { currentUser.auth_level !== "student" ? ("") : (currentUser.students[0].address)}
+
         <br></br>
+
         Email Address / Username: {email}
         <br></br>
-        School: {currentUser.auth_level == "teacher" || "admin" ? (currentUser.teachers[0].school.name) : (currentUser.students[0].school.name)}
+
+        School: 
+        {currentUser.auth_level !== "teacher" && currentUser.auth_level !== "admin" ? ("") : (currentUser.teachers[0].school.name)}
+
+        {currentUser.auth_level !== "student" ? ("") : (currentUser.students[0].school.name)}
+
         <br></br>
         <br></br>
+
         <button onClick={()=>setEdit(!edit)} variant="fill" color="primary" >
         Edit Account Info
         </button>

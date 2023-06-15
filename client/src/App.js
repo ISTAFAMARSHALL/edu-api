@@ -1,7 +1,6 @@
 import { useEffect , useState, useContext} from "react";
 import React from 'react';
 import { Route, Switch} from "react-router-dom"
-import { useHistory } from 'react-router-dom';
 import Login from "./pages/Login"
 import NavBar from "./components/NavBar"
 import TeacherPage from "./pages/TeacherPage"
@@ -12,14 +11,11 @@ import StudentList from "./pages/StudentsList";
 import SchoolList from "./pages/SchoolList";
 import MyInfoPage from "./pages/MyInfoPage";
 import AdminPage from "./pages/AdminPage";
-import TeacherForm from "./components/TeacherForm";
 
 function App() {
 
-  const [loggedIn, setLoggedIn] = useState(false)
+  const [loggedIn, setLoggedIn] = useState(false);
   const {currentUser, setCurrentUser} = useContext(UserContext);
-
-  const history = useHistory()
 
   useEffect(() => {
     fetch("/me")
@@ -30,6 +26,8 @@ function App() {
           setLoggedIn(true)});
     }});
   }, [setCurrentUser]);
+
+  console.log(currentUser)
 
   return (
     <div>
@@ -65,11 +63,11 @@ function App() {
     </Route>
 
     <Route path="/">
-      { currentUser.auth_level != "admin" ? ("") : (<AdminPage setLoggedIn={setLoggedIn}/>)}
+      { currentUser.auth_level !== "admin" ? ("") : (<AdminPage setLoggedIn={setLoggedIn}/>)}
 
-      { currentUser.auth_level != "teacher" ? ("") : (<TeacherPage setLoggedIn={setLoggedIn}/>)}
+      { currentUser.auth_level !== "teacher" ? ("") : (<TeacherPage setLoggedIn={setLoggedIn}/>)}
 
-      { currentUser.auth_level != "student" ? (""): (<StudentPage/>) }
+      { currentUser.auth_level !== "student" ? (""): (<StudentPage/>) }
     </Route> 
         
     </Switch>
