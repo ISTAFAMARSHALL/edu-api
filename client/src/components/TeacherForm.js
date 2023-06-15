@@ -42,7 +42,7 @@ function TeacherForm({setAddTeacher,addTeacher, disabled , setDisabled}) {
           if (response.ok) {
             response.json().then((data) => {
             setAddTeacher(!addTeacher)
-            setDisabled(!disabled)
+            setDisabled(false)
             });
           } else {
             response.json().then((e) => setErrors(e.errors));

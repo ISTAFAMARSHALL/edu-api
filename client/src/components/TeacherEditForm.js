@@ -3,43 +3,40 @@ import { UserContext } from "../context/user";
 
 
 
-function StudentForm({setAddStudent,addStudent, disabled , setDisabled}) {
+function TeacherEditForm({setEditTeacher,editTeacher, disabled , setDisabled}) {
 
-    const [name, setStudentsName] = useState("");
+    const [name, setTeachersName] = useState("");
     const [address, setAddress] = useState("");
+    // const [subject, setSubject] = useState("");
     const [email, setEmail] = useState("");
     const [birthday, setBirthday] = useState("")
-    const [authLevel, setAuthLevel] = useState("")
-    const [password, setPassword] = useState("")
-    const [password_confirmation, setPasswordConfirmation] = useState("")
+
+    // const [password, setPassword] = useState("")
+    // const [password_confirmation, setPasswordConfirmation] = useState("")
 
     const [errors, setErrors] = useState([])
     const {currentUser} = useContext(UserContext);
 
-    const newStudent ={
+    const newTeacher ={
         name,
         address,
         email,
-        auth_level: "student",
-        birthday,
-        school_id: currentUser.teachers[0].school.id,
-        password,
-        password_confirmation,
+        birthday
     }
 
-    function handleAddStudent(e) {
+    function handleAddTeacher(e) {
         e.preventDefault();
 
-        fetch("/students", {
-        method: "POST",
+        fetch("/teachers", {
+        method: "PATCH",
         headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(newStudent)
+          body: JSON.stringify(newTeacher)
             }).then((response) => {
           if (response.ok) {
             response.json().then((data) => {
-            setAddStudent(!addStudent)
+            setEditTeacher(!editTeacher)
             setDisabled(false)
             });
           } else {
@@ -49,15 +46,16 @@ function StudentForm({setAddStudent,addStudent, disabled , setDisabled}) {
     }
 
   return (
-    <form  onSubmit={handleAddStudent}>
+    
+    <form  onSubmit={handleAddTeacher}>
 
     <div id='newRestaurant'>
-      <label>Students Name </label>
+      <label>Teachers Name </label>
         <input 
           type="text"
           value={name}
           placeholder='Please Enter Restaurant Name'
-          onChange={(e) => setStudentsName(e.target.value)}
+          onChange={(e) => setTeachersName(e.target.value)}
         />
     </div>
 
@@ -70,6 +68,16 @@ function StudentForm({setAddStudent,addStudent, disabled , setDisabled}) {
           onChange={(e) => setAddress(e.target.value)}
         />
     </div>
+
+    {/* <div>
+      <label>Subject </label>
+        <input 
+          type="text"
+          value={subject}
+          placeholder='Please Enter a Description'
+          onChange={(e) => setSubject(e.target.value)}
+        />
+    </div> */}
 
     <div>
       <label>Email </label>
@@ -91,6 +99,15 @@ function StudentForm({setAddStudent,addStudent, disabled , setDisabled}) {
         />
     </div>
 
+    {/* <div>
+      <label>Choose Level </label>
+        <select value={authLevel} required placeholder='Select Reservation Day' onChange={(e) => setAuthLevel(e.target.value)}>
+            <option value=""></option>
+            <option value="admin">Admin</option>
+            <option value="teacher">Teacher</option>
+        </select>
+    </div>
+
     <div>
       <label>Password </label>
         <input 
@@ -109,7 +126,7 @@ function StudentForm({setAddStudent,addStudent, disabled , setDisabled}) {
           placeholder='Please Enter a Description'
           onChange={(e) => setPasswordConfirmation(e.target.value)}
         />
-    </div>
+    </div> */}
 
     <div>
         { errors.length <= 0 ? ("") : (
@@ -120,10 +137,10 @@ function StudentForm({setAddStudent,addStudent, disabled , setDisabled}) {
 
     <br></br>
     
-    <button type="submit" value="Save">Save Student</button>
+    <button type="submit" value="Save">Update Teacher</button>
 
   </form>
   )
 }
 
-export default StudentForm
+export default TeacherEditForm
