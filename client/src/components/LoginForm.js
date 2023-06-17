@@ -12,7 +12,6 @@ function LoginForm({ setLoggedIn }) {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
 
-  
   function handleLogin(e) {
     e.preventDefault();
     fetch("/login", {
@@ -33,6 +32,7 @@ function LoginForm({ setLoggedIn }) {
       }
     });
   }
+
 
   return (
     <form onSubmit={handleLogin}>
@@ -60,7 +60,10 @@ function LoginForm({ setLoggedIn }) {
         <button variant="fill" color="primary" type="submit">
           Login
         </button>
+        <button>Login With Google</button>
       </div>
+
+         
 
       <div>
       { errors.length <= 0 ? ("") : (

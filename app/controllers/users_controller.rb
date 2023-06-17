@@ -13,6 +13,7 @@ class UsersController < ApplicationController
     end
 
     def me
+        
         render json: @current_user, status: :ok
     end
     
@@ -36,7 +37,10 @@ class UsersController < ApplicationController
     private
     
     def user_params
-        params.permit(:email , :auth_level, :password_digest , :password_confirmation)
+        params.permit(:email ,:auth_level, :password , :password_confirmation, :full_name,
+        :uid,
+        :avatar_url,
+        :provider)
     end
 
 end

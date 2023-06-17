@@ -14,19 +14,20 @@
     
 end
 
-## Create Teachers
+# ## Create Teachers
 100.times do |index|
     
     name = Faker::Name.name;
     address = Faker::Address.unique.full_address;
     subject = Faker::Educator.subject;
-    email = "teacher#{index + 1}";
+    email = "teacher#{index + 1}@school.com";
     birthday = Faker::Date.birthday; 
     school_id = rand(1..10);
     auth_level = "teacher";
     password = "teacher#{index + 1}";
+    # encrypted_password="teacher#{index + 1}"
 
-    teacher_user = User.create!(email: email, password: password, password_confirmation: password, auth_level: auth_level)
+    teacher_user = User.create!(email: email, password: password, auth_level: auth_level)
     teacher_user.teachers.create!(name: name, address: address, subject: subject, email: email, birthday: birthday, school_id: school_id)
 
 end
@@ -36,18 +37,18 @@ end
 
     name = Faker::Name.name;
     address = Faker::Address.unique.full_address;
-    email = "student#{index + 1}";
+    email = "student#{index + 1}@school.com";
     birthday = Faker::Date.birthday; 
     school_id = rand(1..10);
     auth_level = "student";
     password = "student#{index + 1}";
     
-    student_user = User.create!(email: email, password: password, password_confirmation: password, auth_level: auth_level)
+    student_user = User.create!(email: email, password: password, auth_level: auth_level)
     student_user.students.create!(name: name, address: address, email: email, birthday: birthday, school_id: school_id)
     
 end
 
-## Create Classes and add Student to classes
+# ## Create Classes and add Student to classes
 School.all.each do |school|
 
     school.teachers.each do |teacher|
@@ -81,12 +82,13 @@ School.all.each do |school|
 
 end
 
+# Create Admin User
 1.times do |index|
     
     name = "Anthony";
     address = Faker::Address.unique.full_address;
     subject = "";
-    email = "admin1";
+    email = "admin1@school.com";
     birthday = Faker::Date.birthday; 
     school_id = rand(1..10);
     auth_level = "admin";

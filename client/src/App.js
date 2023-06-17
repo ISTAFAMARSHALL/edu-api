@@ -11,6 +11,8 @@ import StudentList from "./pages/StudentsList";
 import SchoolList from "./pages/SchoolList";
 import MyInfoPage from "./pages/MyInfoPage";
 import AdminPage from "./pages/AdminPage";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import Google from './google'
 
 function App() {
 
@@ -62,12 +64,17 @@ function App() {
         <MyInfoPage/>
     </Route>
 
+
+
     <Route path="/">
       { currentUser.auth_level !== "admin" ? ("") : (<AdminPage setLoggedIn={setLoggedIn}/>)}
 
       { currentUser.auth_level !== "teacher" ? ("") : (<TeacherPage setLoggedIn={setLoggedIn}/>)}
 
       { currentUser.auth_level !== "student" ? (""): (<StudentPage/>) }
+      {/* <GoogleOAuthProvider clienntId="403940930490-l1870nfjc21miovm55s2nkrl74k23sd3.apps.googleusercontent.com" >
+      <Google/>
+      </GoogleOAuthProvider> */}
     </Route> 
         
     </Switch>
