@@ -2,7 +2,7 @@ import React from 'react'
 import { useContext } from 'react';
 import {NavLink} from 'react-router-dom'
 import { UserContext } from "../context/user";
-
+import LogoutButton from "../components/LogoutButton";
 
 function Navbar({setLoggedIn}) {
 
@@ -48,7 +48,8 @@ function Navbar({setLoggedIn}) {
     to="/logout"
     ><button onClick={() => {
     setLoggedIn(false)  
-    handleLogOut()}}>Logout</button>
+    handleLogOut()}}>Logout<LogoutButton/></button>
+    
     </NavLink>
 
     </div>    

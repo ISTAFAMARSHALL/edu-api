@@ -11,13 +11,15 @@ import StudentList from "./pages/StudentsList";
 import SchoolList from "./pages/SchoolList";
 import MyInfoPage from "./pages/MyInfoPage";
 import AdminPage from "./pages/AdminPage";
-import { GoogleOAuthProvider } from "@react-oauth/google";
-import Google from './google'
+import { GoogleAPI, GoogleLogin, GoogleLogout } from "react-google-oauth";
+
+
 
 function App() {
 
   const [loggedIn, setLoggedIn] = useState(false);
   const {currentUser, setCurrentUser} = useContext(UserContext);
+  
 
   useEffect(() => {
     fetch("/me")
@@ -29,7 +31,38 @@ function App() {
     }});
   }, [setCurrentUser]);
 
-  console.log(currentUser)
+  const responseGoogle = (response) => {
+    console.log(response, "I AM RESPONSE FROM GOOGLE")
+    var token = response;
+    var data = {
+      provider: "google_oauth2",
+      uid: token.Ca,
+      id_token: response.wc.id_token,
+      info: {
+        email: token.nt.Wt
+      }
+    }
+
+  console.log(data, "MY USER OBJECT I WANT TO SEND TO THE BACKEND")
+
+  const requestOptions = {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${response.wc.access_token}`,
+      'Content-Type': 'application/json',
+      'access_token': `${response.wc.access_token}`
+    },
+    body: JSON.stringify(data)
+  }
+  return fetch(`call back url set in the backend`, requestOptions)
+  .then(response => response.json())
+  .then(response => {
+    console.log(response,  "I AM  RESPONSE FROM THE BACKEND");
+    // do something
+})
+  .catch(err=>console.log(err))
+}
+  
 
   return (
     <div>
@@ -72,9 +105,23 @@ function App() {
       { currentUser.auth_level !== "teacher" ? ("") : (<TeacherPage setLoggedIn={setLoggedIn}/>)}
 
       { currentUser.auth_level !== "student" ? (""): (<StudentPage/>) }
-      {/* <GoogleOAuthProvider clienntId="403940930490-l1870nfjc21miovm55s2nkrl74k23sd3.apps.googleusercontent.com" >
-      <Google/>
-      </GoogleOAuthProvider> */}
+
+        
+      <GoogleAPI className="GoogleLogin" clientId={CLIENT_ID}>
+        <div>
+          <GoogleLogin
+            height="10"
+            width="500px"
+            backgroundColor="#4285f4"
+            access="offline"
+            scope="email profile"
+            onLoginSuccess={responseGoogle}
+            onFailure={responseGoogle}
+          />
+        </div>
+      </GoogleAPI>
+        
+ 
     </Route> 
         
     </Switch>
@@ -84,7 +131,9 @@ function App() {
     )}  
         
     </div>
+    
   );
+  
 }
 
 export default App;
