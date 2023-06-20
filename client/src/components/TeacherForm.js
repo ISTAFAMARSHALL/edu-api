@@ -1,5 +1,7 @@
 import React, { useState, useContext} from "react";
 import { UserContext } from "../context/user";
+import UploadWidget from "./UploadWidget";
+import { Axios } from "axios";
 
 
 
@@ -13,6 +15,10 @@ function TeacherForm({setAddTeacher,addTeacher, disabled , setDisabled}) {
     const [authLevel, setAuthLevel] = useState("")
     const [password, setPassword] = useState("")
     const [password_confirmation, setPasswordConfirmation] = useState("")
+    const [uploadImage, setUploadImage] = useState("")
+
+    
+
 
     const [errors, setErrors] = useState([])
     const {currentUser} = useContext(UserContext);
@@ -27,6 +33,17 @@ function TeacherForm({setAddTeacher,addTeacher, disabled , setDisabled}) {
         school_id: currentUser.teachers[0].school.id,
         password,
         password_confirmation,
+    }
+
+    const handleImage = () => {
+      const formData = new FormData();
+      formData.append("file", uploadImage);
+      formData.append("upload_preset", "xxxgbh6u");
+
+      Axios.post(
+        "https://api.cloudinary.com/v1_1/denmhkyxq/image/upload",formData
+      )
+      .then((res) => {console.log(res)} )
     }
 
     function handleAddTeacher(e) {
@@ -48,10 +65,12 @@ function TeacherForm({setAddTeacher,addTeacher, disabled , setDisabled}) {
             response.json().then((e) => setErrors(e.errors));
           }
         });
+        
     }
 
   return (
-    <form  onSubmit={handleAddTeacher}>
+    <form  onSubmit={handleAddTeacher
+    }>
 
     <div id='newRestaurant'>
       <label>Teachers Name </label>
@@ -104,6 +123,13 @@ function TeacherForm({setAddTeacher,addTeacher, disabled , setDisabled}) {
     </div>
 
     <div>
+      <input type="file"  value={uploadImage} onChange={(e) => {
+        setUploadImage(e.target.files);
+      }}/>
+    </div>
+    <UploadWidget/>
+
+    <div>
       <label>Choose Level </label>
         <select value={authLevel} required placeholder='Select Reservation Day' onChange={(e) => setAuthLevel(e.target.value)}>
             <option value=""></option>
@@ -144,6 +170,7 @@ function TeacherForm({setAddTeacher,addTeacher, disabled , setDisabled}) {
     <button type="submit" value="Save">Save Teacher</button>
 
     <button onClick={()=>{
+      handleImage
       setAddTeacher(!addTeacher);
       setDisabled(false);
       }} variant="fill" color="primary" >
