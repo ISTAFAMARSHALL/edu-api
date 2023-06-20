@@ -3,7 +3,7 @@ class CreateUsers < ActiveRecord::Migration[7.0]
     create_table :users do |t|
 
       t.string :auth_level
-
+      t.string :image
       t.string :full_name
       t.string :uid
       t.string :avatar_url

@@ -48,8 +48,8 @@ function Navbar({setLoggedIn}) {
     to="/logout"
     ><button onClick={() => {
     setLoggedIn(false)  
-    handleLogOut()}}>Logout<LogoutButton/></button>
-    
+    handleLogOut()}}>Logout</button>
+    <LogoutButton/>
     </NavLink>
 
     </div>    

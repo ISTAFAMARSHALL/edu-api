@@ -13,7 +13,7 @@ function LoginForm({ setLoggedIn }) {
     function start() {
       gapi.client.init({
         clientId: clientId,
-        scope: ""
+        scope: "email"
       })
     };
     gapi.load('client:auth2',start);

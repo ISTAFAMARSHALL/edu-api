@@ -7,7 +7,7 @@
 #   Character.create(name: "Luke", movie: movies.first)
 
 
-## Create Schools
+# # Create Schools
 10.times do |index|
 
     School.create!(name: Faker::Educator.unique.primary_school, address: Faker::Address.unique.full_address)
@@ -16,6 +16,15 @@ end
 
 # ## Create Teachers
 100.times do |index|
+
+    case rand(1..2)
+    when 1
+        sex = "female"
+    when 2
+        sex = "male"
+    end
+
+    imageUrl = "https://xsgames.co/randomusers/avatar.php?g=#{sex}";
     
     name = Faker::Name.name;
     address = Faker::Address.unique.full_address;
@@ -25,15 +34,25 @@ end
     school_id = rand(1..10);
     auth_level = "teacher";
     password = "teacher#{index + 1}";
+    image = imageUrl;
     # encrypted_password="teacher#{index + 1}"
 
-    teacher_user = User.create!(email: email, password: password, auth_level: auth_level)
+    teacher_user = User.create!(email: email, image: image, password: password, password_confirmation: password, auth_level: auth_level)
     teacher_user.teachers.create!(name: name, address: address, subject: subject, email: email, birthday: birthday, school_id: school_id)
 
 end
 
 ## Create Students
 1000.times do |index|
+
+    case rand(1..2)
+    when 1
+        sex = "female"
+    when 2
+        sex = "male"
+    end
+
+    imageUrl = "https://xsgames.co/randomusers/avatar.php?g=#{sex}";
 
     name = Faker::Name.name;
     address = Faker::Address.unique.full_address;
@@ -42,8 +61,9 @@ end
     school_id = rand(1..10);
     auth_level = "student";
     password = "student#{index + 1}";
+    image = imageUrl;
     
-    student_user = User.create!(email: email, password: password, auth_level: auth_level)
+    student_user = User.create!(email: email, image: image, password: password, password_confirmation: password, auth_level: auth_level)
     student_user.students.create!(name: name, address: address, email: email, birthday: birthday, school_id: school_id)
     
 end
@@ -83,7 +103,10 @@ School.all.each do |school|
 end
 
 # Create Admin User
+
 1.times do |index|
+
+    imageUrl = 'https://xsgames.co/randomusers/avatar.php?g=male';
     
     name = "Anthony";
     address = Faker::Address.unique.full_address;
@@ -93,8 +116,9 @@ end
     school_id = rand(1..10);
     auth_level = "admin";
     password = "admin1";
+    image = imageUrl
 
-    teacher_user = User.create!(email: email, password: password, password_confirmation: password, auth_level: auth_level)
+    teacher_user = User.create!(email: email, image: image, password: password, password_confirmation: password, auth_level: auth_level)
     teacher_user.teachers.create!(name: name, address: address, subject: subject, email: email, birthday: birthday, school_id: school_id)
     
 end

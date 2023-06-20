@@ -4,7 +4,7 @@ import { UserContext } from "../context/user";
 
 function TeacherPage ({ setLoggedIn }) {
 
-    const {currentUser , setCurrentUser} = useContext(UserContext);
+    const {currentUser} = useContext(UserContext);
 
     // const [editAccount , setEdit] = useState(false)
     const [view, setView] = useState(false)
@@ -15,6 +15,7 @@ function TeacherPage ({ setLoggedIn }) {
     <main>
         
     <h3>Hello {currentUser.teachers[0].name}</h3>
+    <img src={currentUser.image} alt={currentUser.teachers[0].name}/>
 
     <ol>{currentUser.student_classes.length<=0 ? (        
     <>

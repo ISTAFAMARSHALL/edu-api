@@ -32,6 +32,7 @@ class StudentsController < ApplicationController
 
     def user_params
         params.permit(:email ,:auth_level, :password , :password_confirmation, :full_name,
+        :image,
         :uid,
         :avatar_url,
         :provider)

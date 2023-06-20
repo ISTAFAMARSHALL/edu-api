@@ -11,7 +11,7 @@ import StudentList from "./pages/StudentsList";
 import SchoolList from "./pages/SchoolList";
 import MyInfoPage from "./pages/MyInfoPage";
 import AdminPage from "./pages/AdminPage";
-import { GoogleAPI, GoogleLogin, GoogleLogout } from "react-google-oauth";
+// import { GoogleAPI, GoogleLogin, GoogleLogout } from "react-google-oauth";
 
 
 
@@ -107,7 +107,7 @@ function App() {
       { currentUser.auth_level !== "student" ? (""): (<StudentPage/>) }
 
         
-      <GoogleAPI className="GoogleLogin" clientId={CLIENT_ID}>
+      {/* <GoogleAPI className="GoogleLogin" clientId={CLIENT_ID}>
         <div>
           <GoogleLogin
             height="10"
@@ -120,7 +120,7 @@ function App() {
           />
         </div>
       </GoogleAPI>
-        
+         */}
  
     </Route> 
         

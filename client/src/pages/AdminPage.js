@@ -14,11 +14,14 @@ function AdminPage () {
     const [disabled, setDisabled] = useState(false)
 
 
+    console.log(currentUser)
+
     return (
 
     <main>
         
     <h3>Hello Administrator {currentUser.teachers[0].name}</h3>
+    <img src={currentUser.image} alt={currentUser.teachers[0].name}/>
 
     <ol>
         {currentUser.teachers[0].school.length<=0 ? (        
