@@ -14,7 +14,6 @@ function ClassDetails({selectedClass,setViewClass}) {
                 <li>Address: {s.address}</li>
                 <br></br>
             </ul>
-            
         </div>
     )) 
 

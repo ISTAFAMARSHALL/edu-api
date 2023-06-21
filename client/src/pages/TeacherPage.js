@@ -44,7 +44,7 @@ function TeacherPage () {
     ) : (
             
     <>
-            {!viewClass ?     
+        {!viewClass ?     
         ( 
         <>
         <h2>Your Classes</h2>
