@@ -24,6 +24,8 @@ function TeacherPage () {
                 }} variant="fill" color="primary" >
             View Student List
             </button>
+            <br></br>
+            <br></br>
             </>
         </div> 
     

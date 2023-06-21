@@ -8,10 +8,14 @@ function ClassDetails({selectedClass,setViewClass}) {
     let student_list = selectedClass.students.map((s) => (
         <div key={s.id}>
             <ul>
-                <li>{s.name}</li>
-                <li>Birthday: {s.birthday}</li>
-                <li>Email: {s.email}</li>
-                <li>Address: {s.address}</li>
+                <br></br>
+                {s.name}
+                <br></br>
+                Birthday: {s.birthday}
+                <br></br>
+                Email: {s.email}
+                <br></br>
+                Address: {s.address}
                 <br></br>
             </ul>
         </div>
