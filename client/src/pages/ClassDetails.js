@@ -1,31 +1,33 @@
 import React from 'react'
 
 
-function ClassDetails({}) {
+function ClassDetails({selectedClass,setViewClass}) {
 
   
-
-  const genre = genres.filter((genre) => genre.id === parseInt(parId.id))
-
-  const Displaygenre = genre.map((g) =>{
-
-    const displayGames = g.games.map((g) => {
-      return (
-        <li key={g.id}>{g.name}</li>
-      )
-    })
-
-    return (
-      <div key={g.id} id='display' >
-      <h2>{g.name}</h2>
-      {displayGames.length !== 0 ? displayGames : <>Your have not played any games in this genre</> }
-      </div>
-    )
-    })
+    console.log(selectedClass)
+    let student_list = selectedClass.students.map((s) => (
+        <div key={s.id}>
+            <ul>
+                <li>{s.name}</li>
+                <li>Birthday: {s.birthday}</li>
+                <li>Email: {s.email}</li>
+                <li>Address: {s.address}</li>
+                <br></br>
+            </ul>
+            
+        </div>
+    )) 
 
   return (
     <div id='display'>
-      {Displaygenre}
+        <h1>{selectedClass.teacher.subject}</h1>
+        <header>{selectedClass.time} Student List</header>
+        <br></br>
+        {student_list}
+        <br></br>
+        <button onClick={()=>setViewClass(false)} variant="fill" color="primary" >
+        Return to Class List
+        </button>
     </div>
   )
 }

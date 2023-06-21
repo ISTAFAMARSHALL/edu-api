@@ -1,14 +1,33 @@
 import React, { useState , useContext} from "react";
-// import PatronEditForm from "../components/PatronEditForm";
 import { UserContext } from "../context/user";
+import ClassDetails from "./ClassDetails";
 
-function TeacherPage ({ setLoggedIn }) {
+function TeacherPage () {
 
     const {currentUser} = useContext(UserContext);
+    const [selectedClass , setSelectedClass] = useState(false);
+    const [viewClass , setViewClass] = useState(false);
 
-    // const [editAccount , setEdit] = useState(false)
-    const [view, setView] = useState(false)
 
+    let displayClasses = currentUser.student_classes.map((course) => {
+
+        return (           
+            <div key={course.id}>
+            <>
+            Course Name: {currentUser.teachers[0].subject}
+            <br></br>
+            Time: {course.time}
+            <br></br>
+            <button onClick={()=>{
+                setSelectedClass(course)
+                setViewClass(true)
+                }} variant="fill" color="primary" >
+            View Student List
+            </button>
+            </>
+        </div> 
+    
+    )})
 
     return (
 
@@ -25,67 +44,22 @@ function TeacherPage ({ setLoggedIn }) {
     ) : (
             
     <>
-                
-    <h2>Your Classes</h2>
-                
-    {currentUser.student_classes.map((course) => {
-        let student_list = course.students.map((s) => (
-        <div key={s.id}>
-            <ul>
-                <li>{s.name}</li>
-                <li>Birthday: {s.birthday}</li>
-                <li>Email: {s.email}</li>
-                <li>Address: {s.address}</li>
-                <br></br>
-            </ul>
-        </div>
-    )) 
-
-    return (
-                            
-        <div key={course.id}>
-
+            {!viewClass ?     
+        ( 
         <>
-        Course Name: {currentUser.teachers[0].subject}
-        <br></br>
-        Time: {course.time}
-        <br></br>
+        <h2>Your Classes</h2>
+                
+        {displayClasses}
         </>
-        <br></br>
-
-        {!view ? ( "" ) : student_list}
-
-        </div> 
-        
-        )})}
+        ) : (
+            <ClassDetails selectedClass={selectedClass} setViewClass={setViewClass}/>
+        )}
 
         </>
         )}
             
         </ol> 
 
-        <button onClick={()=>setView(!view)} variant="fill" color="primary" >
-        View Your Student List
-        </button>
-
-
-        {/* {!editAccount ? (
-                
-        <div>
-        
-        <p>{currentUser.phone_number}</p>
-        <p>{currentUser.email_address}</p>
-        <button onClick={()=>setEdit(!editAccount)} variant="fill" color="primary" >
-        Edit Account Info
-        </button>
-                        
-        </div>
-            
-        ) : (
-                
-        <PatronEditForm currentUser={currentUser} setCurrentUser={setCurrentUser} setEdit={setEdit}/>
-        )} */}
-            
         </main>
 
     )
