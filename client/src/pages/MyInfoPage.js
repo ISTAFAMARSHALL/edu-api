@@ -35,9 +35,16 @@ function MyInfoPage() {
     return !edit ? (
     
     <div>
+        
+        <h1>Your Information</h1>
 
         <br></br>
 
+        <img src={currentUser.image} alt={currentUser.email}/>
+
+        <br></br>
+        <br></br>
+        
         Name: {currentUser.auth_level !== "teacher" && currentUser.auth_level !== "admin" ? ("") : (currentUser.teachers[0].name)}{currentUser.auth_level !== "student" ? ("") : (currentUser.students[0].name)}
 
         <br></br>

@@ -1,5 +1,6 @@
 import React, { useState, useContext} from "react";
 import { UserContext } from "../context/user";
+import Axios from "axios"; 
 
 
 
@@ -12,9 +13,32 @@ function StudentForm({setAddStudent,addStudent, disabled , setDisabled}) {
     const [authLevel, setAuthLevel] = useState("")
     const [password, setPassword] = useState("")
     const [password_confirmation, setPasswordConfirmation] = useState("")
+    const [uploadImage, setUploadImage] = useState("")
+    const [cloudinaryId, setCloudinaryId] = useState("")
+    const [disableSave, setDisableSave] = useState(true)
+    const [imageError, setImageError] = useState("")
 
     const [errors, setErrors] = useState([])
     const {currentUser} = useContext(UserContext);
+
+    const handleImage = () => {
+    const formData = new FormData();
+    formData.append("file", uploadImage);
+    formData.append("upload_preset", "xxxgbh6u");
+    Axios.post("https://api.cloudinary.com/v1_1/denmhkyxq/image/upload",formData)
+    .then((res) => {
+        
+      let url = res.data.secure_url.split("/v");
+      let resize = "/w_256,h_256,c_thumb,g_face/";
+      let profile_img = url[1].split("/")[1];
+
+      setCloudinaryId(url[0]+resize+profile_img); 
+      setDisableSave(false)
+      setImageError("")
+
+    })
+    .catch((error) => { setImageError(error.message)})
+    }
 
     const newStudent ={
         name,
@@ -25,6 +49,7 @@ function StudentForm({setAddStudent,addStudent, disabled , setDisabled}) {
         school_id: currentUser.teachers[0].school.id,
         password,
         password_confirmation,
+        image: cloudinaryId,
     }
 
     function handleAddStudent(e) {
@@ -49,6 +74,18 @@ function StudentForm({setAddStudent,addStudent, disabled , setDisabled}) {
     }
 
   return (
+    <div>
+
+    <br></br>
+    
+    <div>
+      <label>Profile Photo </label>
+      <input type="file" onChange={(e) => {
+        setUploadImage(e.target.files[0]);
+      }}/>
+      <button disabled={!disableSave} onClick={handleImage}>Upload</button>
+    </div>
+
     <form  onSubmit={handleAddStudent}>
 
     <div id='newRestaurant'>
@@ -111,16 +148,9 @@ function StudentForm({setAddStudent,addStudent, disabled , setDisabled}) {
         />
     </div>
 
-    <div>
-        { errors.length <= 0 ? ("") : (
-            errors.map((err) => (
-              <li key={err}>{err}</li>
-        )))}
-    </div>
-
     <br></br>
     
-    <button type="submit" value="Save">Save Student</button>
+    <button disabled={disableSave} type="submit" value="Save">Save Student</button>
 
     <button onClick={()=>{
       setAddStudent(!addStudent);
@@ -130,6 +160,18 @@ function StudentForm({setAddStudent,addStudent, disabled , setDisabled}) {
     </button>
 
   </form>
+
+  <br></br>
+
+  <div>
+    { errors.length <= 0 ? ("") : (
+      errors.map((err) => (
+       <li key={err}>{err}</li>
+    )))}
+    { imageError === ("") ? ("") : (imageError)}
+  </div>
+
+  </div>
   )
 }
 

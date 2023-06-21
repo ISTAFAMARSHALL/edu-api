@@ -45,7 +45,10 @@ function TeacherList () {
         </button>) : ("")} */}
 
         {school.length === undefined ? (school.teachers.map((t) => (
+
         <ul key={t.id}>
+            <img src={t.user.image} alt={t.name}/>
+            <br></br>
             {t.name}
             <br></br>
             {t.subject}

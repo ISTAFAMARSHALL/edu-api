@@ -1,11 +1,10 @@
 import React, { useState, useContext} from "react";
 import { UserContext } from "../context/user";
 import UploadWidget from "./UploadWidget";
-import { Axios } from "axios";
+import Axios from "axios"; 
 
 
-
-function TeacherForm({setAddTeacher,addTeacher, disabled , setDisabled}) {
+function TeacherForm({setAddTeacher,addTeacher, setDisabled}) {
 
     const [name, setTeachersName] = useState("");
     const [address, setAddress] = useState("");
@@ -16,35 +15,45 @@ function TeacherForm({setAddTeacher,addTeacher, disabled , setDisabled}) {
     const [password, setPassword] = useState("")
     const [password_confirmation, setPasswordConfirmation] = useState("")
     const [uploadImage, setUploadImage] = useState("")
-
-    
-
+    const [cloudinaryId, setCloudinaryId] = useState("")
+    const [disableSave, setDisableSave] = useState(true)
+    const [imageError, setImageError] = useState("")
 
     const [errors, setErrors] = useState([])
     const {currentUser} = useContext(UserContext);
-
-    const newTeacher ={
-        name,
-        address,
-        subject,
-        email,
-        auth_level: authLevel,
-        birthday,
-        school_id: currentUser.teachers[0].school.id,
-        password,
-        password_confirmation,
-    }
-
+    
     const handleImage = () => {
       const formData = new FormData();
       formData.append("file", uploadImage);
       formData.append("upload_preset", "xxxgbh6u");
+      Axios.post("https://api.cloudinary.com/v1_1/denmhkyxq/image/upload",formData)
+      .then((res) => {
+        
+        let url = res.data.secure_url.split("/v");
+        let resize = "/w_256,h_256,c_thumb,g_face/";
+        let profile_img = url[1].split("/")[1];
 
-      Axios.post(
-        "https://api.cloudinary.com/v1_1/denmhkyxq/image/upload",formData
-      )
-      .then((res) => {console.log(res)} )
+        setCloudinaryId(url[0]+resize+profile_img); 
+        setDisableSave(false)
+        setImageError("")
+
+      })
+      .catch((error) => { setImageError(error.message)})
     }
+
+    const newTeacher ={
+      name,
+      address,
+      subject,
+      email,
+      auth_level: authLevel,
+      birthday,
+      school_id: currentUser.teachers[0].school.id,
+      password,
+      password_confirmation,
+      image: cloudinaryId,
+  }
+
 
     function handleAddTeacher(e) {
         e.preventDefault();
@@ -65,12 +74,24 @@ function TeacherForm({setAddTeacher,addTeacher, disabled , setDisabled}) {
             response.json().then((e) => setErrors(e.errors));
           }
         });
-        
     }
 
   return (
-    <form  onSubmit={handleAddTeacher
-    }>
+    <div>
+
+    <br></br>
+
+    <div>
+      <label>Profile Photo </label>
+      <input type="file" onChange={(e) => {
+        setUploadImage(e.target.files[0]);
+      }}/>
+      <button disabled={!disableSave} onClick={handleImage}>Upload</button>
+    </div>
+    {/* <UploadWidget/> */}
+
+
+    <form  onSubmit={handleAddTeacher}>
 
     <div id='newRestaurant'>
       <label>Teachers Name </label>
@@ -123,13 +144,6 @@ function TeacherForm({setAddTeacher,addTeacher, disabled , setDisabled}) {
     </div>
 
     <div>
-      <input type="file"  value={uploadImage} onChange={(e) => {
-        setUploadImage(e.target.files);
-      }}/>
-    </div>
-    <UploadWidget/>
-
-    <div>
       <label>Choose Level </label>
         <select value={authLevel} required placeholder='Select Reservation Day' onChange={(e) => setAuthLevel(e.target.value)}>
             <option value=""></option>
@@ -158,19 +172,12 @@ function TeacherForm({setAddTeacher,addTeacher, disabled , setDisabled}) {
         />
     </div>
 
-    <div>
-        { errors.length <= 0 ? ("") : (
-            errors.map((err) => (
-              <li key={err}>{err}</li>
-        )))}
-    </div>
 
     <br></br>
     
-    <button type="submit" value="Save">Save Teacher</button>
+    <button disabled={disableSave} type="submit" value="Save">Save Teacher</button>
 
     <button onClick={()=>{
-      handleImage
       setAddTeacher(!addTeacher);
       setDisabled(false);
       }} variant="fill" color="primary" >
@@ -178,6 +185,19 @@ function TeacherForm({setAddTeacher,addTeacher, disabled , setDisabled}) {
     </button>
 
   </form>
+
+  <br></br>
+
+  <div>
+    { errors.length <= 0 ? ("") : (
+        errors.map((err) => (
+        <li key={err}>{err}</li>
+      )))}
+    {imageError === ("") ? ("") : (imageError)}
+  </div>
+
+  </div>
+
   )
 }
 

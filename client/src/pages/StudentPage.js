@@ -1,4 +1,4 @@
-import { React, useState , useContext} from "react";
+import React, { useState , useContext} from "react";
 // import PatronEditForm from "../components/PatronEditForm";
 import { UserContext } from "../context/user";
 
@@ -7,14 +7,15 @@ function StudentPage ({ setLoggedIn }) {
     const {currentUser , setCurrentUser} = useContext(UserContext);
 
     // const [editAccount , setEdit] = useState(false)
-    const [view, setView] = useState(false)
+    const [view, setView] = useState(false);
 
     return (
         
-    <main>
+        <main>
     
-        <h2> Hello Student</h2> 
-        {currentUser.students[0].name}
+        <h2> Hello Student {currentUser.students[0].name}</h2> 
+        
+        <img src={currentUser.image} alt={currentUser.students[0].name}/>
 
         <ul>
         

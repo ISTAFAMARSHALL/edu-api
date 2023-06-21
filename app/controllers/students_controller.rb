@@ -11,7 +11,7 @@ class StudentsController < ApplicationController
     end
     
     def create
-        user = User.create!(user_params).authenticate(params[:password])
+        user = User.create!(user_params)
         student = user.students.create!(student_params)
         render json: student, status: :created
     end

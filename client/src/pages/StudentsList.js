@@ -44,6 +44,8 @@ function StudentList () {
         {school.length === undefined ? (school.students.map((s) => (
           
         <ul key={s.id}>
+            <img src={s.user.image} alt={s.name}/>
+            <br></br>
             {s.name}
             <br></br>
             {s.email}

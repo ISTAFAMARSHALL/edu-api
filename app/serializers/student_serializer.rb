@@ -6,6 +6,10 @@ class StudentSerializer < ActiveModel::Serializer
   self.object.school
   end
 
+  attribute :user do 
+    self.object.user
+  end
+
   has_many :student_classes, serializer: StudentClassSummarySerializer
   
 end
