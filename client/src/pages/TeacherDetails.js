@@ -1,6 +1,5 @@
 import React from 'react'
 
-
 function TeacherDetails({selectedTeacher,setViewTeacher}) {
 
     let teacher_list = selectedTeacher.teacher.map((t) => (
@@ -18,15 +17,15 @@ function TeacherDetails({selectedTeacher,setViewTeacher}) {
     )) 
 
   return (
-    <div id='display'>
-        <br></br>
-        {teacher_list}
-        <br></br>
-        <button onClick={()=>setViewTeacher(false)} variant="fill" color="primary" >
-        Return to Class List
-        </button>
-    </div>
-  )
+        <div>
+            <br></br>
+            {teacher_list}
+            <br></br>
+            <button onClick={()=>setViewTeacher(false)} variant="fill" color="primary" >
+            Return to Class List
+            </button>
+        </div>
+    )
 }
 
 export default TeacherDetails

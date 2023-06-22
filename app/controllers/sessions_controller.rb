@@ -17,16 +17,6 @@ class SessionsController < ApplicationController
         @current_user.save
         session.delete :user_id
         head :no_content     
-    end      
-
-    # def new
-    #     render :new
-    # end
-    
-    # def omni
-    #     user_info = request.env['omniauth.auth']
-    #     raise user_info # Your own session management should be placed here.
-    #     session[:email] ||= user.email
-    # end
+    end
     
 end

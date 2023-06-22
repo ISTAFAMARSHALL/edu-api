@@ -11,6 +11,4 @@ function Login({setLoggedIn}) {
     );
 }
   
-
-  
 export default Login;

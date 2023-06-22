@@ -1,10 +1,11 @@
-import React, { useState , useContext } from "react";
+import React, { useState } from "react";
+// import {useContext } from "react";
 import { useHistory } from 'react-router-dom';
-import { UserContext } from "../context/user";
+// import { UserContext } from "../context/user";
 
 function SchoolForm() {
 
-  const {setCurrentUser} = useContext(UserContext);
+  // const {setCurrentUser} = useContext(UserContext);
 
   const history = useHistory()
   
@@ -12,29 +13,27 @@ function SchoolForm() {
   const [address, setAddress] = useState("");
   const [errors, setErrors] = useState([]);
 
-  
   function handleLogin(e) {
     e.preventDefault();
     fetch("/schools", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ name, address }),
+    method: "POST",
+    headers: {
+    "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ name, address }),
     }).then((response) => {
-      if (response.ok) {
-        response.json().then((user) => {
-          console.log(user)
-
-          history.push("/")
-        });
-      } else {
-        response.json().then((e) => setErrors(e.errors));
-      }
+    if (response.ok) {
+    response.json().then((user) => {
+    console.log(user)
+    history.push("/")
     });
+    } else {
+    response.json().then((e) => setErrors(e.errors));
+    }});
   }
 
   return (
+
     <form onSubmit={handleLogin}>
 
       <div > 
@@ -66,13 +65,14 @@ function SchoolForm() {
       </div>
 
       <div>
-      { errors.length <= 0 ? ("") : (
-                errors.map((err) => (
-          <li key={err}>{err}</li>
+        { errors.length <= 0 ? ("") : (
+        errors.map((err) => (
+        <li key={err}>{err}</li>
         )))}
       </div>
 
     </form>
+
   );
 }
 

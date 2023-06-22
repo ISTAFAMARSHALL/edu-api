@@ -1,26 +1,26 @@
-import React, {useEffect, useRef} from 'react'; 
+// import React, {useEffect, useRef} from 'react'; 
 
-const UploadWidget = () => {
-    const cloudinaryRef = useRef();
-    const widegetRef = useRef();
+// const UploadWidget = () => {
+//     const cloudinaryRef = useRef();
+//     const widegetRef = useRef();
 
-    useEffect(() => {
-        cloudinaryRef.current = window.cloudinary;
+//     useEffect(() => {
+//         cloudinaryRef.current = window.cloudinary;
 
-        widegetRef.current = cloudinaryRef.current.createUploadWidget({
-            cloudName: 'denmhkyxq',
-            uploadPreset: 'xxxgbh6u'
-        }, function(error, result) {
-            console.log(result)
-        })
-    }, [])
+//         widegetRef.current = cloudinaryRef.current.createUploadWidget({
+//             cloudName: 'denmhkyxq',
+//             uploadPreset: 'xxxgbh6u'
+//         }, function(error, result) {
+//             console.log(result)
+//         })
+//     }, [])
 
-    return (
-        <button onClick={() => widegetRef.current.open()}>
-            Upload
-        </button>
-    )
+//     return (
+//         <button onClick={() => widegetRef.current.open()}>
+//             Upload
+//         </button>
+//     )
 
-}
+// }
 
-export default UploadWidget;
+// export default UploadWidget;

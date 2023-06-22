@@ -40,30 +40,34 @@ function StudentPage () {
         
         {currentUser.course_enrollments.length<=0 ? (
             
-        <>
-            <h2>You have no classes</h2>
-        </>
-        
-        ) : (
+            <>
+                <h2>You have no classes</h2>
+            </>
             
-        <>
-        {!viewTeacher ?   
-        (
-        <>
-        <h2>Your Classes</h2>
-        {displayTeachers}
-        </>
-        ):(
-        <TeacherDetails selectedTeacher={selectedTeacher} setViewTeacher={setViewTeacher} />
-        )}
-        </>
+            ) : (
+                
+            <>
+            {!viewTeacher ?   
+            (
+            <>
+
+            <h2>Your Classes</h2>
+            
+            {displayTeachers}
+            </>
+
+            ):(
+            
+            <TeacherDetails selectedTeacher={selectedTeacher} setViewTeacher={setViewTeacher} />
+            )}
+
+            </>
 
         )}
 
         </ul> 
 
-    
-    </main>
+        </main>
 
     )
 }

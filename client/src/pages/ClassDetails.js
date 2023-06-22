@@ -1,10 +1,7 @@
 import React from 'react'
 
-
 function ClassDetails({selectedClass,setViewClass}) {
 
-  
-    console.log(selectedClass)
     let student_list = selectedClass.students.map((s) => (
         <div key={s.id}>
             <ul>
@@ -21,18 +18,18 @@ function ClassDetails({selectedClass,setViewClass}) {
         </div>
     )) 
 
-  return (
-    <div id='display'>
-        <h1>{selectedClass.teacher.subject}</h1>
-        <header>{selectedClass.time} Student List</header>
-        <br></br>
-        {student_list}
-        <br></br>
-        <button onClick={()=>setViewClass(false)} variant="fill" color="primary" >
-        Return to Class List
-        </button>
-    </div>
-  )
+    return (
+        <div >
+            <h1>{selectedClass.teacher.subject}</h1>
+            <header>{selectedClass.time} Student List</header>
+            <br></br>
+            {student_list}
+            <br></br>
+            <button onClick={()=>setViewClass(false)} variant="fill" color="primary" >
+                Return to Class List
+            </button>
+        </div>
+    )
 }
 
 export default ClassDetails
