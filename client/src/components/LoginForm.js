@@ -2,7 +2,7 @@ import React, { useState , useEffect, useContext } from "react";
 import { useHistory } from 'react-router-dom';
 import { UserContext } from "../context/user";
 import { gapi } from "gapi-script";
-import LoginButton from "../components/LoginButton";
+// import LoginButton from "../components/LoginButton";
 
 const clientId = "403940930490-l1870nfjc21miovm55s2nkrl74k23sd3.apps.googleusercontent.com";
 
@@ -76,7 +76,7 @@ function LoginForm({ setLoggedIn }) {
           Login
         </button>
 
-        <LoginButton>Login With Google</LoginButton>
+        {/* <LoginButton>Login With Google</LoginButton> */}
       </div>
 
       <div>

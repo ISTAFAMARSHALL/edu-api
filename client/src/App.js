@@ -31,37 +31,37 @@ function App() {
     }});
   }, [setCurrentUser]);
 
-  const responseGoogle = (response) => {
-    console.log(response, "I AM RESPONSE FROM GOOGLE")
-    var token = response;
-    var data = {
-      provider: "google_oauth2",
-      uid: token.Ca,
-      id_token: response.wc.id_token,
-      info: {
-        email: token.nt.Wt
-      }
-    }
+//   const responseGoogle = (response) => {
+//     console.log(response, "I AM RESPONSE FROM GOOGLE")
+//     var token = response;
+//     var data = {
+//       provider: "google_oauth2",
+//       uid: token.Ca,
+//       id_token: response.wc.id_token,
+//       info: {
+//         email: token.nt.Wt
+//       }
+//     }
 
-  console.log(data, "MY USER OBJECT I WANT TO SEND TO THE BACKEND")
+//   console.log(data, "MY USER OBJECT I WANT TO SEND TO THE BACKEND")
 
-  const requestOptions = {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${response.wc.access_token}`,
-      'Content-Type': 'application/json',
-      'access_token': `${response.wc.access_token}`
-    },
-    body: JSON.stringify(data)
-  }
-  return fetch(`call back url set in the backend`, requestOptions)
-  .then(response => response.json())
-  .then(response => {
-    console.log(response,  "I AM  RESPONSE FROM THE BACKEND");
-    // do something
-})
-  .catch(err=>console.log(err))
-}
+//   const requestOptions = {
+//     method: 'POST',
+//     headers: {
+//       'Authorization': `Bearer ${response.wc.access_token}`,
+//       'Content-Type': 'application/json',
+//       'access_token': `${response.wc.access_token}`
+//     },
+//     body: JSON.stringify(data)
+//   }
+//   return fetch(`call back url set in the backend`, requestOptions)
+//   .then(response => response.json())
+//   .then(response => {
+//     console.log(response,  "I AM  RESPONSE FROM THE BACKEND");
+//     // do something
+// })
+//   .catch(err=>console.log(err))
+// }
   
 
   return (
