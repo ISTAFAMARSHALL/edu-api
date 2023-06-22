@@ -24,7 +24,7 @@ gem 'simple_token_authentication', '~> 1.0'
 gem 'omniauth'
 gem "omniauth-rails_csrf_protection", "~> 1.0"
 
-gem 'omniauth-google-oauth2'
+# gem 'omniauth-google-oauth2'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
