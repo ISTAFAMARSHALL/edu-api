@@ -1,10 +1,10 @@
 class SessionsController < ApplicationController
          
-    skip_before_action :authorize, only: [:create, :new, :omni]   
+    skip_before_action :authorize, only: [:create]   
 
     def create
             user = User.find_by(email: params[:email])         
-        if user&.valid_password?(params[:password])
+        if user&.authenticate(params[:password])
             session[:user_id] ||= user.id
             render json: user, status: :created      
         else
@@ -13,8 +13,6 @@ class SessionsController < ApplicationController
     end
 
     def destroy         
-        @current_user&.authentication_token = nil
-        @current_user.save
         session.delete :user_id
         head :no_content     
     end

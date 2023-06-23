@@ -17,7 +17,7 @@ class UsersController < ApplicationController
     end
     
     def create
-        user = User.create!(user_params).authenticatable_salt(params[:password])
+        user = User.create!(user_params).authenticate(params[:password])
         render json: user, status: :created
     end
 

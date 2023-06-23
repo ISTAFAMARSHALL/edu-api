@@ -18,12 +18,6 @@ gem 'bcrypt'
 
 gem 'active_model_serializers'
 
-gem 'devise'
-gem 'simple_token_authentication', '~> 1.0'
-
-gem 'omniauth'
-gem "omniauth-rails_csrf_protection", "~> 1.0"
-
 # gem 'omniauth-google-oauth2'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
